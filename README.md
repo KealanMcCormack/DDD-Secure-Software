@@ -1,5 +1,5 @@
 # DDD-Secure-Software
-Secure software engineering project for COMP47660
+Secure software engineering project for COMP47660 Secure Software Engineering 
 
 
 Ideas for Pages
