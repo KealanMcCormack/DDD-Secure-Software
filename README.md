@@ -22,8 +22,14 @@ Other Things to look into
 
 Questions
  - How to do sessions / track user privilege
+   - JSP has an inbuilt HttpSession object
  - How to run the forum backend
+   - Youtube tutorials seem to cover this
  - How to make graphs and display
+   - https://stackoverflow.com/questions/52704690/plot-line-graph-using-jsp-from-database-values
+
+
+Possibly a good reference project - https://github.com/Han-Sim/java-jsp-forum-web
 
 DB
  - Users
