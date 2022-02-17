@@ -37,3 +37,8 @@ DB
  - Admin/HSE
  - Vaccine centres / appointments
  - Forum
+
+Run Docker Db
+docker run --name DDD-mysql -p 4000:3306 -e MYSQL_ROOT_PASSWORD=password123 -d mysql
+
+Need to create table in this db for now

@@ -16,6 +16,16 @@ public class BookController {
     @Autowired
     BookRepository bookRepository;
 
+    @RequestMapping("/register")
+    public String register(){
+        return "register";
+    }
+
+    @RequestMapping("/login")
+    public String login(){
+        return "login";
+    }
+
     // See All Books on Homepage
     @RequestMapping({"/", "/list"})
     public String viewHomePage(Model model){
