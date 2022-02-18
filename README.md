@@ -3,16 +3,17 @@ Secure software engineering project for COMP47660 Secure Software Engineering
 
 
 Ideas for Pages
-  - Homepage
-  - Registration
-  - Login (Should this be for all or separate admin login)
-  - Vaccine booking
-  - Record of last activity / Current appointment
+  - Homepage - Lukasz
+  - Registration - Lukasz
+  - Login (Should this be for all or separate admin login) - Kealan
+  - Vaccine booking - Jeeves
+    - Scripts for filling tables, new vaccine table
+  - Record of last activity / Current appointment - Lukasz
     - Same page, if current appointment need to be able to cancel
-  - Stats page
-    - Ours or HSE stats
-  - Forum 
-  - HSE User update
+  - Stats page - Kealan
+    - Ours
+  - Forum - Kealan
+  - HSE User update - Jeeves
 
 
 Other Things to look into
