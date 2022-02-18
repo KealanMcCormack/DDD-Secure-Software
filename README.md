@@ -6,7 +6,7 @@ Ideas for Pages
   - Homepage - Lukasz
   - Registration - Lukasz
   - Login (Should this be for all or separate admin login) - Kealan
-  - Vaccine booking - Jeeves
+  - Vaccine booking - Jeevess
     - Scripts for filling tables, new vaccine table
   - Record of last activity / Current appointment - Lukasz
     - Same page, if current appointment need to be able to cancel
