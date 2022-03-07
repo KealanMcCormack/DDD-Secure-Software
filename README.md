@@ -5,6 +5,7 @@ Secure software engineering project for COMP47660 Secure Software Engineering
 Ideas for Pages
   - Homepage - Lukasz
   - Registration - Lukasz
+  - Sub page for account registration(Username+Password) - Lukasz
   - Login (Should this be for all or separate admin login) - Kealan
     - Decide what flags admin
   - Vaccine booking - Jeevess
