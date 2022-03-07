@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @Controller
-public class BookController {
+public class MainController {
 
     @Autowired
     BookRepository bookRepository;
