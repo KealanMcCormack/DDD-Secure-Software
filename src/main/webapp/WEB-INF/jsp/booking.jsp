@@ -14,40 +14,16 @@
 <table id="bookingTable">
     <tr>
         <th>Centre Name</th>
-        <th>Address</th>
-        <th>Availability</th> <!--This is the amount of appointment slots remaining-->
-        <th>Phone Number</th>
+        <th>Time</th>
+        <th>Date</th>
     </tr>
-    <tr>
-        <td>Your moms house</td>
-        <td>123 Fake Street</td>
-        <td>0</td>
-        <td>01839058775</td>
-        <td id="bookingSlot">
-            <label for="times">Select Time:</label>
-            <select name="times" class="timeDropDown">
-                <option value="13:00">13:00</option>
-                <option value="14:00">14:00</option>
-                <option value="15:00">15:00</option>
-            </select>
-            <input type="submit" value="Book">
-        </td>
-    </tr>
-    <tr>
-        <td>Kealans House</td>
-        <td>123 Dumb Road</td>
-        <td>999</td>
-        <td>01 384 4739</td>
-        <td id="bookingSlot">
-            <label for="times">Select Time:</label>
-            <select name="times" class="timeDropDown">
-                <option value="13:00">13:00</option>
-                <option value="14:00">14:00</option>
-                <option value="15:00">15:00</option>
-            </select>
-            <input type="submit" value="Book">
-        </td>
-    </tr>
+    <c:forEach items="${vaccineAppointments}" var="appointment">
+        <tr>
+            <td>${appointment.centre}</td>
+            <td>${appointment.time}</td>
+            <td>${appointment.date}</td>
+        </tr>
+    </c:forEach>
 </table>
 </body>
 </html>

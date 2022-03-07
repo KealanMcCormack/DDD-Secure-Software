@@ -3,6 +3,7 @@ package com.example.controller;
 import com.example.exception.BookNotFoundException;
 import com.example.model.Book;
 import com.example.model.Login;
+import com.example.model.VaccineAppointment;
 import com.example.repository.BookRepository;
 import com.example.repository.LoginRepository;
 import com.example.repository.UsersRepository;
@@ -41,7 +42,10 @@ public class MainController {
     }
 
     @GetMapping("/booking")
-    public String booking(){
+    public String booking(Model model){
+        vaccineAppointmentRepository.save(new VaccineAppointment(123, "Kealans house", "13:00", "24th Feb", false));
+        vaccineAppointmentRepository.save(new VaccineAppointment(123, "Lukaszs house", "14:00", "21st Feb", false));
+        model.addAttribute("vaccineAppointments", vaccineAppointmentRepository.findAll());
         return "booking";
     }
 
