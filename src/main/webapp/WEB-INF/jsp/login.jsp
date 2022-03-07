@@ -1,6 +1,7 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+<%@ page language="java" contentType="text/html; charset=UTF-8;"
          pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
 <html>
 <head>
     <title>Vaccine Registration</title>
@@ -13,11 +14,19 @@
     </h2>
 </div>
 <div style="margin: 0 auto; display: table;">
-    <form action="validatelogin.jsp" method="post">
+    <form action="/loginData" method="post">
         <table style="border: solid;">
             <caption>
                 <h2>
                     Please fill in the form below
+                    <%
+                        if(request.getSession().getAttribute("login") != null){
+                    %>
+                    <p>I'm sorry, the login information supplied was incorrect.<p>
+                    <p>Please Try again</p>
+                    <%
+                        }
+                    %>
                 </h2>
             </caption>
             <tr>

@@ -3,13 +3,19 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 <head>
-    <title>Books Store Application</title>
+    <title>Vaccine Homepage</title>
 </head>
 <body>
 <center>
     <h1>Books Management</h1>
+    <% if(request.getSession().getAttribute("username") != null){
+        String username = request.getSession().getAttribute("username").toString();
+    %>
+    <p>Welcome back - <%=username%> - </p>
+    <% } %>
+
     <h2>
-        <a href="/new">Add New Book</a>
+        <a href="/login">Login</a>
         &nbsp;&nbsp;&nbsp;
         <a href="/">List All Books</a>
 

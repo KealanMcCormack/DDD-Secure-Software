@@ -6,6 +6,7 @@ Ideas for Pages
   - Homepage - Lukasz
   - Registration - Lukasz
   - Login (Should this be for all or separate admin login) - Kealan
+    - Decide what flags admin
   - Vaccine booking - Jeevess
     - Scripts for filling tables, new vaccine table
   - Record of last activity / Current appointment - Lukasz
@@ -43,3 +44,6 @@ Run Docker Db
 docker run --name DDD-mysql -p 4000:3306 -e MYSQL_ROOT_PASSWORD=password123 -d mysql
 
 Need to create table in this db for now
+Use mysql -u root -p
+Then the password
+Then CREATE DATABASE vaccines;

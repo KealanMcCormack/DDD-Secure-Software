@@ -2,12 +2,16 @@ package com.example.controller;
 
 import com.example.exception.BookNotFoundException;
 import com.example.model.Book;
+import com.example.model.Login;
 import com.example.repository.BookRepository;
+import com.example.repository.LoginRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @Controller
@@ -15,6 +19,9 @@ public class BookController {
 
     @Autowired
     BookRepository bookRepository;
+
+    @Autowired
+    LoginRepository loginRepository;
 
     @RequestMapping("/register")
     public String register(){
@@ -24,6 +31,26 @@ public class BookController {
     @RequestMapping("/login")
     public String login(){
         return "login";
+    }
+
+    @PostMapping("/loginData")
+    public String loginCheck(@RequestParam String username, @RequestParam String password, HttpServletRequest request){
+        if(loginRepository.existsById(username)){
+            if(loginRepository.findById(username).get().getPassword().equals(password)){
+                request.getSession().setAttribute("login", true);
+                request.getSession().setAttribute("username", username);
+                return "redirect:/";
+            }
+
+        }
+        if(username.contains("add")){
+            Login login = new Login();
+            login.setUsername(username);
+            login.setPassword(password);
+            loginRepository.save(login);
+        }
+        request.getSession().setAttribute("login", false);
+        return "redirect:/login";
     }
 
     // See All Books on Homepage
