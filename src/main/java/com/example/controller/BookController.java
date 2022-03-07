@@ -5,11 +5,11 @@ import com.example.model.Book;
 import com.example.model.Login;
 import com.example.repository.BookRepository;
 import com.example.repository.LoginRepository;
+import com.example.repository.UsersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -23,15 +23,19 @@ public class BookController {
     @Autowired
     LoginRepository loginRepository;
 
-    @RequestMapping("/register")
+    @Autowired
+    UsersRepository usersRepository;
+
+    @RequestMapping("/vaccine_register")
     public String register(){
-        return "register";
+        return "vaccine_register";
     }
 
     @RequestMapping("/login")
     public String login(){
         return "login";
     }
+
 
     @PostMapping("/loginData")
     public String loginCheck(@RequestParam String username, @RequestParam String password, HttpServletRequest request){
@@ -58,7 +62,7 @@ public class BookController {
     public String viewHomePage(Model model){
         List<Book> listBooks = bookRepository.findAll();
         model.addAttribute("listBooks", listBooks);
-        return "welcome";
+        return "homepage";
     }
 
     // Delete a Book
