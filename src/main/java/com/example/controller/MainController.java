@@ -6,6 +6,7 @@ import com.example.model.Login;
 import com.example.repository.BookRepository;
 import com.example.repository.LoginRepository;
 import com.example.repository.UsersRepository;
+import com.example.repository.VaccineAppointmentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,6 +27,9 @@ public class MainController {
     @Autowired
     UsersRepository usersRepository;
 
+    @Autowired
+    VaccineAppointmentRepository vaccineAppointmentRepository;
+
     @RequestMapping("/vaccine_register")
     public String register(){
         return "vaccine_register";
@@ -34,6 +38,11 @@ public class MainController {
     @RequestMapping("/login")
     public String login(){
         return "login";
+    }
+
+    @GetMapping("/booking")
+    public String booking(){
+        return "booking";
     }
 
 
