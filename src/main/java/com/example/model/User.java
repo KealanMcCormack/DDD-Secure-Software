@@ -4,11 +4,12 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "users")
 public class User {
-    @Id
+    @NotBlank
     private String email;
     @NotBlank
     private String name;
@@ -16,19 +17,19 @@ public class User {
     private String surname;
     @NotBlank
     private String dateOfBirth;
-    @NotBlank
+    @Id
     private String PPS;
     @NotBlank
     private String address;
     @NotBlank
-    private String phoneNumber;
+    private int phoneNumber;
     @NotBlank
     private String nationality;
 
     public User(){
         super();
     }
-    public User(String email, @NotBlank String name, @NotBlank String surname, @NotBlank String dateOfBirth, @NotBlank String PPS, @NotBlank String address, @NotBlank String phoneNumber, @NotBlank String nationality) {
+    public User(String email, @NotBlank String name, @NotBlank String surname, @NotBlank String dateOfBirth, @NotBlank String PPS, @NotBlank String address, @NotBlank int phoneNumber, @NotBlank String nationality) {
         this.email = email;
         this.name = name;
         this.surname = surname;
@@ -87,11 +88,11 @@ public class User {
         this.address = address;
     }
 
-    public String getPhoneNumber() {
+    public int getPhoneNumber() {
         return phoneNumber;
     }
 
-    public void setPhoneNumber(String phoneNumber) {
+    public void setPhoneNumber(int phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
 

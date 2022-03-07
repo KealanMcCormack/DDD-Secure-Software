@@ -14,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.time.LocalDate;
 import java.util.List;
 
 @Controller
@@ -73,6 +74,19 @@ public class MainController {
         }
         request.getSession().setAttribute("login", false);
         return "redirect:/login";
+    }
+
+    @PostMapping("/userData")
+    public String createUser(@RequestParam String name, @RequestParam String surname, @RequestParam String email, @RequestParam String PPS, @RequestParam String dateOfBirth, @RequestParam String address, @RequestParam int phoneNumber, @RequestParam String nationality, HttpServletRequest request){
+        if(usersRepository.existsById(PPS)){
+            return "redirect:/";
+        }
+
+        LocalDate currentDate = LocalDate.now();
+        currentDate.toString();
+
+
+        return "redirect:/";
     }
 
     // See All Books on Homepage

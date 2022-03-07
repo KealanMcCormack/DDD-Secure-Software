@@ -13,7 +13,7 @@
     </h2>
 </div>
 <div style="margin: 0 auto; display: table;">
-    <form action="save" method="post">
+    <form action="/userData" method="post">
         <table style="border: solid;">
             <caption>
                 <h2>
@@ -26,14 +26,12 @@
                     <input type="text" name="name" size="45" required/>
                 </td>
             </tr>
-
             <tr>
                 <th>Surname: </th>
                 <td>
                     <input type="text" name="surname" size="45" required/>
                 </td>
             </tr>
-
             <tr>
                 <th>Email: </th>
                 <td>
@@ -56,7 +54,7 @@
             <tr>
                 <th>Phone Number: </th>
                 <td>
-                    <input type="text" name="phoneNumber" size="45" required/>
+                    <input type="number" name="phoneNumber" size="45" required/>
                 </td>
             </tr>
             <tr>
@@ -65,7 +63,6 @@
                     <input type="date" name="dateOfBirth" size="45" required/>
                 </td>
             </tr>
-
             <tr>
                 <th>Nationality: </th>
                 <td>
@@ -74,7 +71,7 @@
             </tr>
             <tr>
                 <td colspan="2" align="center">
-                    <input type="submit" value="Save" />
+                    <input type="submit" value="Submit"/>
                 </td>
             </tr>
         </table>
