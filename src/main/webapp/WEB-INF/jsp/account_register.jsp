@@ -20,34 +20,57 @@
                     Please fill in the form below
                 </h2>
             </caption>
-            <input type="hidden" name="id" value="<c:out value='${book.id}' />"  />
             <tr>
-                <th>Title: </th>
+                <th>First Name: </th>
                 <td>
-                    <input type="text" name="book_name" size="45"
-                           value="<c:out value='${book.book_name}' />"
-                    />
+                    <input type="text" name="name" size="45" required/>
                 </td>
             </tr>
 
             <tr>
-                <th>ISBN: </th>
+                <th>Surname: </th>
                 <td>
-                    <input type="text" name="isbn" size="45"
-                           value="<c:out value='${book.isbn}' />"
-                    />
+                    <input type="text" name="surname" size="45" required/>
+                </td>
+            </tr>
+
+            <tr>
+                <th>Email: </th>
+                <td>
+                    <input type="email" name="email" size="45" required/>
                 </td>
             </tr>
             <tr>
-                <th>Authors: </th>
-                <c:forEach var="author" items="${authors}">
+                <th>PPS: </th>
                     <td>
-                        <input type="text" name="name" size="45"
-                               value="<c:out value='${author.author_first_name} ${author.author_last_name}'/>" readonly
-                        />
+                        <input type="text" name="PPS" size="45" required/>
                     </td>
+            </tr>
+            <tr>
+                <th>Address: </th>
+                <td>
+                    <input type="text" name="address" size="45" required/>
+                </td>
+            </tr>
 
-                </c:forEach>
+            <tr>
+                <th>Phone Number: </th>
+                <td>
+                    <input type="text" name="phoneNumber" size="45" required/>
+                </td>
+            </tr>
+            <tr>
+                <th>Date of Birth: </th>
+                <td>
+                    <input type="date" name="dateOfBirth" size="45" required/>
+                </td>
+            </tr>
+
+            <tr>
+                <th>Nationality: </th>
+                <td>
+                    <input type="text" name="nationality" size="45" required/>
+                </td>
             </tr>
             <tr>
                 <td colspan="2" align="center">

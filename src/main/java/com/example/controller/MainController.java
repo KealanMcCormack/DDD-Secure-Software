@@ -31,7 +31,7 @@ public class MainController {
     VaccineAppointmentRepository vaccineAppointmentRepository;
 
     @RequestMapping("/vaccine_register")
-    public String register(){
+    public String vaccineRegister(){
         return "vaccine_register";
     }
 
@@ -43,6 +43,11 @@ public class MainController {
     @GetMapping("/booking")
     public String booking(){
         return "booking";
+    }
+
+    @RequestMapping("/account_register")
+    public String accountRegister(){
+        return "account_register";
     }
 
 
