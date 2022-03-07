@@ -42,6 +42,12 @@ public class MainController {
         return "login";
     }
 
+    @RequestMapping("/logout")
+    public String logout(HttpServletRequest request){
+        request.getSession().invalidate();
+        return "redirect:/";
+    }
+
     @GetMapping("/booking")
     public String booking(Model model){
         vaccineAppointmentRepository.save(new VaccineAppointment(123, "Kealans house", "13:00", "24th Feb", false));

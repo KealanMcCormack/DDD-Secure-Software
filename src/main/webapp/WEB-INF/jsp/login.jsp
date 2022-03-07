@@ -39,7 +39,7 @@
             <tr>
                 <th>Password: </th>
                 <td>
-                    <input type="text" name="password" size="45" required/>
+                    <input type="password" name="password" size="45" required/>
                 </td>
             </tr>
             <tr>
