@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDate;
+import java.time.Month;
+import java.util.Arrays;
 import java.util.List;
 
 @Controller
@@ -85,11 +87,16 @@ public class MainController {
     @PostMapping("/userData")
     public String createUser(@RequestParam String name, @RequestParam String surname, @RequestParam String email, @RequestParam String PPS, @RequestParam String dateOfBirth, @RequestParam String address, @RequestParam int phoneNumber, @RequestParam String nationality, HttpServletRequest request){
         if(usersRepository.existsById(PPS)){
-            return "redirect:/";
+            request.getSession().setAttribute("registered", false);
+            return "redirect:/account_register";
         }
 
         LocalDate currentDate = LocalDate.now();
-        currentDate.toString();
+        String[] result = dateOfBirth.split("-");
+        System.out.println(Arrays.toString(result));
+        int month = Integer.parseInt(result[1]);
+
+        //LocalDate birthday = LocalDate.of(result[0], Month.of(month), result[2]);
 
 
         return "redirect:/";

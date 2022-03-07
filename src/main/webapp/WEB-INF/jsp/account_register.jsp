@@ -18,6 +18,15 @@
             <caption>
                 <h2>
                     Please fill in the form below
+
+                    <%
+                        if(request.getSession().getAttribute("registered") != null){
+                    %>
+                    <p>I'm sorry, this account already exists.<p>
+                    <p>Please Try again</p>
+                    <%
+                        }
+                    %>
                 </h2>
             </caption>
             <tr>
