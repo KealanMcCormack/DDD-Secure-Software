@@ -156,6 +156,7 @@ public class MainController {
         user.setNationality(nationality);
         request.getSession().setAttribute("PPS", PPS);
         request.getSession().setAttribute("NewlyRegistered", "true");
+        usersRepository.save(user);
 
         return "redirect:/newUserLogin";
     }
