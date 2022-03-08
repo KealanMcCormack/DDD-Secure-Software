@@ -4,6 +4,7 @@ import lombok.Data;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @Data
 @Entity
@@ -23,12 +24,13 @@ public class VaccineAppointment {
     @NotBlank
     public String date;
 
-    public boolean isBooked;
+    @NotNull
+    public String isBooked;
 
     //TODO: Make this a foreign key to a user
     public String username;
 
-    public VaccineAppointment(int id, String centre, String time, String date, boolean isBooked, String username) {
+    public VaccineAppointment(int id, String centre, String time, String date, String isBooked, String username) {
         this.id = id;
         this.centre = centre;
         this.time = time;
@@ -37,7 +39,7 @@ public class VaccineAppointment {
         this.username = username;
     }
 
-    public VaccineAppointment(int id, String centre, String time, String date, boolean isBooked) {
+    public VaccineAppointment(int id, String centre, String time, String date, String isBooked) {
         this.id = id;
         this.centre = centre;
         this.time = time;
