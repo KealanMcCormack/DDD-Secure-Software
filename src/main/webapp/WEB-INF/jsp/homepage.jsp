@@ -24,6 +24,15 @@
 <div align="center">
 
     <a href="/vaccine_register">Register to Vaccine</a>
+
+    <%
+        if(request.getSession().getAttribute("username") != null){
+    %>
+    <a href="/activity">View Last Activity</a>
+    <%
+        }
+    %>
+
     <!-- FORUM HERE<a href="">Forum</a>-->
 
 </div>

@@ -47,6 +47,11 @@ public class MainController {
         return "login";
     }
 
+    @RequestMapping("/activity")
+    public String activity(){
+        return "activity";
+    }
+
     @RequestMapping("/logout")
     public String logout(HttpServletRequest request){
         request.getSession().invalidate();
@@ -62,6 +67,8 @@ public class MainController {
         model.addAttribute("vaccineAppointments", vaccineAppointmentRepository.findAll());
         return "booking";
     }
+
+
 
     @RequestMapping("/account_register")
     public String accountRegister(){
