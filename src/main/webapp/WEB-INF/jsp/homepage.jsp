@@ -23,10 +23,24 @@
 </center>
 <div align="center">
 
-    <a href="/account_register">Register to Vaccine</a>
+    <%
+        if(request.getSession().getAttribute("NewlyRegistered") == null){
+    %>
+    <a href="/account_register">Register to Account</a>
+    <%
+        }
+    %>
 
     <%
-        if(request.getSession().getAttribute("username") != null){
+        if(request.getSession().getAttribute("login") != null){
+    %>
+    <a href="/vaccine_register">Register to Vaccine</a>
+    <%
+        }
+    %>
+
+    <%
+        if(request.getSession().getAttribute("login") != null){
     %>
     <a href="/activity">View Last Activity</a>
     <%
