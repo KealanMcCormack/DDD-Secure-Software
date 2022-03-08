@@ -12,6 +12,9 @@
 <body>
 <center>
 <h1>
+    <div style="text-align: center;">
+        <h2>Last Activity</h2>
+    </div>
     <% if(request.getSession().getAttribute("username") != null){
         String username = request.getSession().getAttribute("username").toString();
     %>
@@ -20,19 +23,22 @@
 
 </h1>
 </center>
-<table id="lastActivity">
-    <tr>
-        <th>Centre Name</th>
-        <th>Time</th>
-        <th>Date</th>
-    </tr>
-    <c:forEach items="${vaccineAppointments}" var="appointment">
+<div style="margin: 0 auto; display: table;">
+    <table id="lastActivity">
         <tr>
-            <td>${appointment.centre}</td>
-            <td>${appointment.time}</td>
-            <td>${appointment.date}</td>
+            <th>Centre Name</th>
+            <th>Time</th>
+            <th>Date</th>
         </tr>
-    </c:forEach>
-</table>
+        <c:forEach items="${vaccineAppointments}" var="appointment">
+            <tr>
+                <td>${appointment.centre}</td>
+                <td>${appointment.time}</td>
+                <td>${appointment.date}</td>
+            </tr>
+        </c:forEach>
+    </table>
+</div>
+
 </body>
 </html>

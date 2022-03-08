@@ -8,9 +8,6 @@
 <body>
 <div style="text-align: center;">
     <h1>Account Registration</h1>
-    <h2>
-
-    </h2>
 </div>
 <div style="margin: 0 auto; display: table;">
     <form action="/userData" method="post">
