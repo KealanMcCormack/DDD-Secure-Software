@@ -20,9 +20,18 @@
                     Please fill in the form below
 
                     <%
-                        if(request.getSession().getAttribute("registered") != null){
+                        if(request.getSession().getAttribute("already_registered") != null){
                     %>
                     <p>I'm sorry, this account already exists.<p>
+                    <p>Please Try again</p>
+                    <%
+                        }
+                    %>
+
+                    <%
+                        if(request.getSession().getAttribute("failed_registered") != null){
+                    %>
+                    <p>Incorrect credentials.<p>
                     <p>Please Try again</p>
                     <%
                         }

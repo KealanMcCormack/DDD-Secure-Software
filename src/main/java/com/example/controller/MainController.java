@@ -3,6 +3,7 @@ package com.example.controller;
 import com.example.exception.BookNotFoundException;
 import com.example.model.Book;
 import com.example.model.Login;
+import com.example.model.User;
 import com.example.model.VaccineAppointment;
 import com.example.repository.BookRepository;
 import com.example.repository.LoginRepository;
@@ -16,6 +17,8 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDate;
 import java.time.Month;
+import java.time.Period;
+import java.time.temporal.ChronoUnit;
 import java.util.Arrays;
 import java.util.List;
 
@@ -87,17 +90,30 @@ public class MainController {
     @PostMapping("/userData")
     public String createUser(@RequestParam String name, @RequestParam String surname, @RequestParam String email, @RequestParam String PPS, @RequestParam String dateOfBirth, @RequestParam String address, @RequestParam int phoneNumber, @RequestParam String nationality, HttpServletRequest request){
         if(usersRepository.existsById(PPS)){
-            request.getSession().setAttribute("registered", false);
+            request.getSession().setAttribute("already_registered", true);
             return "redirect:/account_register";
         }
 
         LocalDate currentDate = LocalDate.now();
         String[] result = dateOfBirth.split("-");
-        System.out.println(Arrays.toString(result));
-        int month = Integer.parseInt(result[1]);
+        LocalDate birthday = LocalDate.of(Integer.parseInt(result[0]), Integer.parseInt(result[1]), Integer.parseInt(result[2]));
 
-        //LocalDate birthday = LocalDate.of(result[0], Month.of(month), result[2]);
+        long timeBetween = ChronoUnit.DAYS.between(birthday, currentDate);
 
+        if(timeBetween < 6575){
+            request.getSession().setAttribute("failed_registered", false);
+            return "redirect:/account_register";
+        }
+
+        User user = new User();
+        user.setName(name);
+        user.setSurname(surname);
+        user.setEmail(email);
+        user.setPPS(PPS);
+        user.setDateOfBirth(dateOfBirth);
+        user.setAddress(address);
+        user.setPhoneNumber(phoneNumber);
+        user.setNationality(nationality);
 
         return "redirect:/";
     }
