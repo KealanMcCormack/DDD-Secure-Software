@@ -22,6 +22,14 @@
             <td>${appointment.centre}</td>
             <td>${appointment.time}</td>
             <td>${appointment.date}</td>
+            <c:if test="${appointment.isBooked == 'true'}">
+                <td>Not available</td>
+            </c:if>
+            <c:if test="${appointment.isBooked == 'false'}">
+                <td>
+                    <input type="submit" value="Book">
+                </td>
+            </c:if>
         </tr>
     </c:forEach>
 </table>

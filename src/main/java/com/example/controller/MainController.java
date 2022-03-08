@@ -54,9 +54,11 @@ public class MainController {
     }
 
     @GetMapping("/booking")
+    //TODO(gerard): Figure out why this isnt working
     public String booking(Model model){
-        vaccineAppointmentRepository.save(new VaccineAppointment(123, "Kealans house", "13:00", "24th Feb", false));
-        vaccineAppointmentRepository.save(new VaccineAppointment(123, "Lukaszs house", "14:00", "21st Feb", false));
+        vaccineAppointmentRepository.deleteAll();
+        vaccineAppointmentRepository.save(new VaccineAppointment(123, "Kealans house", "13:00", "24th Feb", "true"));
+        vaccineAppointmentRepository.save(new VaccineAppointment(123, "Lukaszs house", "14:00", "21st Feb", "false"));
         model.addAttribute("vaccineAppointments", vaccineAppointmentRepository.findAll());
         return "booking";
     }
