@@ -23,7 +23,7 @@
 </center>
 <div align="center">
 
-    <a href="/vaccine_register">Register to Vaccine</a>
+    <a href="/account_register">Register to Vaccine</a>
 
     <%
         if(request.getSession().getAttribute("username") != null){

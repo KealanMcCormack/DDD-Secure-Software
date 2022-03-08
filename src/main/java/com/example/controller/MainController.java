@@ -75,24 +75,55 @@ public class MainController {
         return "account_register";
     }
 
+    @RequestMapping("/newUserLogin")
+    public String newLoginRegister(){
+        return "newUserLogin";
+    }
 
-    @PostMapping("/loginData")
+    @PostMapping("/addLoginDetails")
+    public String addLoginDetails(@RequestParam String username, @RequestParam String password, HttpServletRequest request){
+
+        if(request.getSession().getAttribute("NewlyRegistered").equals("true")){
+            //Check if username taken
+            if(loginRepository.existsById(username)){
+                request.getSession().setAttribute("UsernameTaken", "true");
+                return "redirect:/newUserLogin";
+            } else{
+                Login login = new Login();
+                login.setUsername(username);
+                login.setPassword(password);
+
+                String PPS = (String) request.getSession().getAttribute("PPS");
+
+                login.setPPS(PPS);
+                loginRepository.save(login);
+                request.getSession().setAttribute("login", "true");
+                request.getSession().setAttribute("username", username);
+                request.getSession().setAttribute("NewlyRegistered", "false");
+                return "redirect:/";
+            }
+        }
+        return "redirect:/";
+
+    }
+
+    @PostMapping("/loginCheck")
     public String loginCheck(@RequestParam String username, @RequestParam String password, HttpServletRequest request){
         if(loginRepository.existsById(username)){
             if(loginRepository.findById(username).get().getPassword().equals(password)){
-                request.getSession().setAttribute("login", true);
+                request.getSession().setAttribute("login", "true");
                 request.getSession().setAttribute("username", username);
                 return "redirect:/";
             }
-
         }
         if(username.contains("add")){
             Login login = new Login();
             login.setUsername(username);
             login.setPassword(password);
+            login.setPPS("123");
             loginRepository.save(login);
         }
-        request.getSession().setAttribute("login", false);
+        request.getSession().setAttribute("login", "false");
         return "redirect:/login";
     }
 
@@ -123,8 +154,10 @@ public class MainController {
         user.setAddress(address);
         user.setPhoneNumber(phoneNumber);
         user.setNationality(nationality);
+        request.getSession().setAttribute("PPS", PPS);
+        request.getSession().setAttribute("NewlyRegistered", "true");
 
-        return "redirect:/";
+        return "redirect:/newUserLogin";
     }
 
     // See All Books on Homepage

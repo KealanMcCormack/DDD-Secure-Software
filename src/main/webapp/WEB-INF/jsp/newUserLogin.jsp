@@ -14,21 +14,18 @@
     </h2>
 </div>
 <div style="margin: 0 auto; display: table;">
-    <form action="/loginCheck" method="post">
+    <form action="/addLoginDetails" method="post">
         <table style="border: solid;">
+            <%
+                if(!(request.getSession().getAttribute("NewlyRegistered")==null) && request.getSession().getAttribute("NewlyRegistered").equals("true")){
+            %>
             <caption>
                 <h2>
-                    Please fill in the form below
+                    Please create your account below
                     <%
-                        if(!(request.getSession().getAttribute("login")==null) && request.getSession().getAttribute("login").equals("false")){
+                        if(!(request.getSession().getAttribute("UsernameTaken")==null) && request.getSession().getAttribute("UsernameTaken").equals("true")){
                     %>
-                    <p>I'm sorry, the login information supplied was incorrect.<p>
-                    <p>Please Try again</p>
-                    <%
-                        }
-                        if(!(request.getSession().getAttribute("login")==null) && request.getSession().getAttribute("login").equals("true")){
-                    %>
-                    <p>You are Already logged in<p>
+                    <p>I'm sorry, this username was taken<p>
                     <%
                         }
                     %>
@@ -54,6 +51,13 @@
                     <input type="reset" value="Reset" />
                 </td>
             </tr>
+            <%
+                } else{
+            %>
+            <p>I'm sorry, you need to register before creating an account</p>
+            <%
+                }
+            %>
         </table>
     </form>
 </div>

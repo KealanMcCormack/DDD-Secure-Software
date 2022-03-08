@@ -2,10 +2,8 @@ package com.example.model;
 
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 
-import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 @Data
@@ -16,4 +14,6 @@ public class Login {
     private String username;
     @NotNull
     private String password;
+    @NotNull
+    private String PPS;
 }
