@@ -24,7 +24,7 @@
 <div align="center">
 
     <%
-        if(request.getSession().getAttribute("NewlyRegistered") == null){
+        if(request.getSession().getAttribute("NewlyRegistered") == null && request.getSession().getAttribute("login") == null){
     %>
     <a href="/account_register">Register to Account</a>
     <%
