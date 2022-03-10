@@ -5,7 +5,9 @@ import lombok.Data;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Data
 @Entity
@@ -18,9 +20,19 @@ public class ForumPost {
     private String title;
     @NotBlank
     private String content;
+
+    public ForumPost(String title, String content, String authorName) {
+        this.title = title;
+        this.content = content;
+        this.authorName = authorName;
+    }
+
+    public ForumPost() {
+    }
+
     @NotBlank
     private String authorName;
-    @NotBlank
-    @OneToMany(targetEntity = Comment.class)
-    private List comments;
+
+    @OneToMany(mappedBy = "forumPost")
+    private Set<Comment> comments;
 }

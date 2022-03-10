@@ -1,0 +1,80 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+         pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Last Activity</title>
+</head>
+<body>
+<center>
+    <h1>
+        <% if(request.getSession().getAttribute("username") != null){
+            String username = request.getSession().getAttribute("username").toString();
+        %>
+        <p>View Last Activity for - <%=username%> - </p>
+        <% } %>
+
+    </h1>
+    <h2>
+        <a href="/">Back</a>
+        &nbsp;&nbsp;
+        <%
+            if(request.getSession().getAttribute("username") != null){
+        %>
+        <a href="/newForumPost">Make a Post</a>
+        <%
+            }
+        %>
+
+    </h2>
+</center>
+<table id="lastActivity">
+    <tr>
+        <th>Centre Name</th>
+        <th>Time</th>
+        <th>Date</th>
+    </tr>
+    <c:forEach items="${forumposts}" var="post">
+        <tr>
+            <td>${post.title}</td>
+        </tr>
+        <tr>
+            <td>${post.content}</td>
+        </tr>
+        <tr>
+            <td>${post.authorName}</td>
+        </tr>
+        <c:forEach items="${post.comments}" var="comment">
+            <tr>
+                <td>${comment.comment}</td>
+            </tr>
+            <tr>
+                <td>${comment.poster}</td>
+            </tr>
+        </c:forEach>
+
+        <%
+            if(request.getSession().getAttribute("privilege") != "HSE"){
+        %>
+
+        <tr>
+            <td>
+                <form action="/addForumComment/${post.id}">
+                <label for="comment">Add a comment:</label>
+                <input type="text" id="comment" name="comment"><br><br>
+                <input type="submit" value="Submit">
+            </form>
+            </td>
+        </tr>
+
+        <%
+            }
+        %>
+    </c:forEach>
+</table>
+</body>
+</html>

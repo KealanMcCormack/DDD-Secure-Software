@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 import java.time.LocalDate;
 
 @Entity
@@ -21,7 +22,7 @@ public class User {
     private String PPS;
     @NotBlank
     private String address;
-    @NotBlank
+
     private int phoneNumber;
     @NotBlank
     private String nationality;
@@ -29,7 +30,7 @@ public class User {
     public User(){
         super();
     }
-    public User(String email, @NotBlank String name, @NotBlank String surname, @NotBlank String dateOfBirth, @NotBlank String PPS, @NotBlank String address, @NotBlank int phoneNumber, @NotBlank String nationality) {
+    public User(String email, @NotBlank String name, @NotBlank String surname, @NotBlank String dateOfBirth, @NotBlank String PPS, @NotBlank String address, int phoneNumber, @NotBlank String nationality) {
         this.email = email;
         this.name = name;
         this.surname = surname;

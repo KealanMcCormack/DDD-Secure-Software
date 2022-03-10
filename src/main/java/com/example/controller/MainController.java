@@ -1,14 +1,8 @@
 package com.example.controller;
 
 import com.example.exception.BookNotFoundException;
-import com.example.model.Book;
-import com.example.model.Login;
-import com.example.model.User;
-import com.example.model.VaccineAppointment;
-import com.example.repository.BookRepository;
-import com.example.repository.LoginRepository;
-import com.example.repository.UsersRepository;
-import com.example.repository.VaccineAppointmentRepository;
+import com.example.model.*;
+import com.example.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,20 +13,19 @@ import java.time.LocalDate;
 import java.time.Month;
 import java.time.Period;
 import java.time.temporal.ChronoUnit;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 @Controller
 public class MainController {
-
-    @Autowired
-    BookRepository bookRepository;
 
     @Autowired
     LoginRepository loginRepository;
 
     @Autowired
     UsersRepository usersRepository;
+
+    @Autowired
+    ForumPostRepository forumPostRepository;
 
     @Autowired
     VaccineAppointmentRepository vaccineAppointmentRepository;
@@ -68,6 +61,39 @@ public class MainController {
         return "booking";
     }
 
+    @GetMapping("/forum")
+    public String forum(Model model){
+        model.addAttribute("forumposts", forumPostRepository.findAll());
+        return "forum";
+    }
+
+    @PostMapping("/addForumPost")
+    public String addForumPost(HttpServletRequest request, @RequestParam String title, @RequestParam String content){
+        ForumPost post = new ForumPost(title, content, (String) request.getSession().getAttribute("username"));
+        Set<Comment> comments =  new HashSet<>();
+        post.setComments(comments);
+        forumPostRepository.save(post);
+        return "redirect:/forum";
+    }
+
+    @PostMapping("/addForumComment/{id}")
+    public String addForumComment(@PathVariable int id, HttpServletRequest request, @RequestParam String comment){
+        //ForumPost post = new ForumPost(title, content, (String) request.getSession().getAttribute("username"));
+        Set<Comment> comments =  new HashSet<>();
+        //post.setComments(comments);
+        //forumPostRepository.save(post);
+        return "redirect:/forum";
+    }
+
+    @RequestMapping("/newForumPost")
+    public String newForumPost(){
+        return "newForumPosts";
+    }
+
+    @RequestMapping("/newForumComment/{id}")
+    public String newForumComment(@PathVariable int id){
+        return "newForumPosts";
+    }
 
 
     @RequestMapping("/account_register")
@@ -155,54 +181,16 @@ public class MainController {
         user.setPhoneNumber(phoneNumber);
         user.setNationality(nationality);
         request.getSession().setAttribute("PPS", PPS);
-        request.getSession().setAttribute("NewlyRegistered", true);
+        request.getSession().setAttribute("NewlyRegistered", "true");
         usersRepository.save(user);
 
         return "redirect:/newUserLogin";
     }
 
     // See All Books on Homepage
-    @RequestMapping({"/", "/list"})
-    public String viewHomePage(Model model){
-        List<Book> listBooks = bookRepository.findAll();
-        model.addAttribute("listBooks", listBooks);
+    @RequestMapping({"/"})
+    public String viewHomePage(){
         return "homepage";
     }
 
-    // Delete a Book
-    @RequestMapping("/delete/{id}")
-    public String deleteBook(@PathVariable(value = "id") Long bookId, Model model) throws BookNotFoundException{
-        Book book = bookRepository.findById(bookId)
-                .orElseThrow(() -> new BookNotFoundException(bookId));
-        bookRepository.delete(book);
-        return viewHomePage(model);
-    }
-
-    // Create a Book
-    @RequestMapping("/new")
-    public String createBook(){
-        return "bookform";
-    }
-    // Save Created Book
-    @PostMapping("/books")
-    public String saveCreatedBook(@ModelAttribute("book") Book book, Model model){
-        bookRepository.save(book);
-        return viewHomePage(model);
-    }
-
-    // Update a Book
-    // Get Book By ID and open the editform
-    @GetMapping("/books/{id}")
-    public String getBookById(@PathVariable(value="id") Long bookId, Model model) throws BookNotFoundException{
-        Book book = bookRepository.findById(bookId)
-                .orElseThrow(() -> new BookNotFoundException(bookId));
-        model.addAttribute("book", book);
-        return "editform";
-    }
-    // Save Updated Details
-    @RequestMapping(value="/books/save", method=RequestMethod.POST)
-    public String updateBook(@ModelAttribute("book") Book book, Model model){
-        bookRepository.save(book);
-        return viewHomePage(model);
-    }
 }

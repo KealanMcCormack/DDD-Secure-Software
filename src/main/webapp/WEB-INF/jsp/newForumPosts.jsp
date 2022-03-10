@@ -3,44 +3,37 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 <head>
-    <title>Books Store Application</title>
+    <title>Vaccine Forum</title>
 </head>
 <body>
 <div style="text-align: center;">
-    <h1>Books Management</h1>
+    <h1>Create a new post</h1>
     <h2>
-        <a href="/new">Add New Book</a>
-        &nbsp;&nbsp;&nbsp;
-        <a href="/list">List All Books</a>
-
+        <a href="/forum">Back to Forum</a>
     </h2>
 </div>
 <div align="center">
-    <form action="books" method="post">
+    <form action="/addForumPost" method="post">
         <table border="1" cellpadding="5">
             <caption>
-                <h2> Add New Book</h2>
+                <h2>Forum Post</h2>
             </caption>
             <tr>
                 <th>Title: </th>
                     <td>
-                        <input type="text" name="book_name" size="45"
-                               value="<c:out value='${book.book_name}' />"
-                        />
+                        <input type="text" name="title" size="45" required/>
                     </td>
                 </tr>
 
                 <tr>
-                    <th>ISBN: </th>
+                    <th>Content: </th>
                     <td>
-                        <input type="text" name="isbn" size="45"
-                               value="<c:out value='${book.isbn}' />"
-                        />
+                        <input type="text" name="content" size="600" required/>
                     </td>
                 </tr>
                 <tr>
                     <td colspan="2" align="center">
-                        <input type="submit" value="Save" />
+                        <input type="submit" value="Submit" />
                     </td>
                 </tr>
             </table>
