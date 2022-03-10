@@ -12,7 +12,6 @@ import javax.validation.constraints.NotNull;
 public class VaccineAppointment {
 
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
     public int id;
 
     @NotBlank

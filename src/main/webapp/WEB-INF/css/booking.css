@@ -2,23 +2,23 @@
     --cell-width: 150px;
 }
 
-#bookingTable {
+.bookingTable {
     table-layout: fixed;
     width: 500px;
 }
 
-#bookingTable th {
+.bookingTable th {
     text-decoration: underline;
     font-size: 16px;
     width: var(--cell-width);
 }
 
-#bookingTable td {
+.bookingTable td {
     text-align: center;
     width: var(--cell-width);
 }
 
-#bookingTable #bookingSlot{
+#bookingTable.bookingSlot{
     width: 200px;
     display: inline-block;
 }

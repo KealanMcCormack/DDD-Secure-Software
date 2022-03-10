@@ -35,6 +35,8 @@ public class MainController {
     @Autowired
     CommentRepository commentRepository;
 
+    boolean initBookingPage = true;
+
     @RequestMapping("/vaccine_register")
     public String vaccineRegister(){
         return "vaccine_register";
@@ -72,11 +74,16 @@ public class MainController {
     }
 
     @GetMapping("/booking")
-    //TODO(gerard): Figure out why this isnt working
     public String booking(Model model){
-        vaccineAppointmentRepository.deleteAll();
-        vaccineAppointmentRepository.save(new VaccineAppointment(123, "Kealans house", "13:00", "24th Feb", "true"));
-        vaccineAppointmentRepository.save(new VaccineAppointment(123, "Lukaszs house", "14:00", "21st Feb", "false"));
+        if(initBookingPage){
+            vaccineAppointmentRepository.deleteAll();
+            vaccineAppointmentRepository.save(new VaccineAppointment(123, "Kealans house", "13:00", "24th Feb", "true"));
+            vaccineAppointmentRepository.save(new VaccineAppointment(124, "Lukaszs house", "14:00", "21st Feb", "false"));
+            initBookingPage = false;
+            System.out.println("IN INIT");
+        }
+
+        System.out.println("IN NORMAL");
         model.addAttribute("vaccineAppointments", vaccineAppointmentRepository.findAll());
         return "booking";
     }
@@ -115,6 +122,19 @@ public class MainController {
         return "newForumPosts";
     }
 
+
+    @PostMapping("/bookRequest/{id}")
+    public String bookRequest(HttpServletRequest servletRequest, @PathVariable("id") String id){
+        String username = (String) servletRequest.getSession().getAttribute("username");
+        int appointmentID = Integer.parseInt(id);
+
+        VaccineAppointment oldApt =  vaccineAppointmentRepository.getById(appointmentID);
+        VaccineAppointment newApt = new VaccineAppointment(appointmentID, oldApt.getCentre(), oldApt.getTime(), oldApt.getDate(), "true", username);
+        System.out.println(newApt);
+        vaccineAppointmentRepository.deleteById(appointmentID);
+        vaccineAppointmentRepository.save(newApt);
+        return "redirect:/booking";
+    }
 
     @RequestMapping("/account_register")
     public String accountRegister(){
