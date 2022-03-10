@@ -12,12 +12,15 @@ import javax.validation.constraints.NotNull;
 @Entity
 @Table(name = "admins")
 public class Admin {
-    @NotBlank
-    private String email;
 
     @Id
+    private String email;
+
+    @NotBlank
     private String username;
     @NotNull
     private String password;
 
+    @NotNull
+    private String privilege;
 }

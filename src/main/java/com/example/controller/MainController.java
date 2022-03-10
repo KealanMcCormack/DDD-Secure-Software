@@ -41,6 +41,16 @@ public class MainController {
         return "vaccine_register";
     }
 
+    @RequestMapping("/registerNewUser")
+    public String registerNewUser(){
+        return "registerNewUser";
+    }
+
+    @RequestMapping("/admin_homepage")
+    public String adminHomepage(){
+        return "admin_homepage";
+    }
+
     @RequestMapping("/login")
     public String login(){
         return "login";
@@ -163,7 +173,7 @@ public class MainController {
             if(adminLoginRepository.findById(username).get().getPassword().equals(password)){
                 request.getSession().setAttribute("admin_login", "true");
                 request.getSession().setAttribute("username", username);
-                return "redirect:/";
+                return "redirect:/admin_homepage";
             }
         }
 
@@ -203,6 +213,23 @@ public class MainController {
         usersRepository.save(user);
 
         return "redirect:/newUserLogin";
+    }
+
+    @PostMapping("/createNewHSEUser")
+    public String createNewHSEUser(@RequestParam String email, @RequestParam String username, @RequestParam String password, @RequestParam String privilege, HttpServletRequest request){
+        if(adminRepository.existsById(email)){
+            request.getSession().setAttribute("already_registered", true);
+            return "redirect:/registerNewUser";
+        }
+
+        Admin admin = new Admin();
+        admin.setEmail(email);
+        admin.setUsername(username);
+        admin.setPassword(password);
+        admin.setPrivilege(privilege);
+        adminRepository.save(admin);
+
+        return "redirect:/admin_homepage";
     }
 
     // See All Books on Homepage
