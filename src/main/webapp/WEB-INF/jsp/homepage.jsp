@@ -19,6 +19,8 @@
 
         <a href="/logout">Logout</a>
 
+        <a href="/admin_login">Admin Login</a>
+
     </h2>
 </center>
 <div align="center">

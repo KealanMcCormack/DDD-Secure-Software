@@ -4,29 +4,29 @@
 
 <html>
 <head>
-    <title>Login</title>
+    <title>HSE Login</title>
 </head>
 <body>
 <div style="text-align: center;">
-    <h1>Login</h1>
+    <h1>HSE Login</h1>
     <h2>
         <a href="/">Back</a>
     </h2>
 </div>
 <div style="margin: 0 auto; display: table;">
-    <form action="/loginCheck" method="post">
+    <form action="/adminLoginCheck" method="post">
         <table style="border: solid;">
             <caption>
                 <h2>
                     Please fill in the form below
                     <%
-                        if(!(request.getSession().getAttribute("login")==null) && request.getSession().getAttribute("login").equals("false")){
+                        if(!(request.getSession().getAttribute("admin_login")==null) && request.getSession().getAttribute("admin_login").equals("false")){
                     %>
                     <p>I'm sorry, the login information supplied was incorrect.<p>
                     <p>Please Try again</p>
                     <%
                         }
-                        if(!(request.getSession().getAttribute("login")==null) && request.getSession().getAttribute("login").equals("true")){
+                        if(!(request.getSession().getAttribute("admin_login")==null) && request.getSession().getAttribute("admin_login").equals("true")){
                     %>
                     <p>You are Already logged in<p>
                     <%

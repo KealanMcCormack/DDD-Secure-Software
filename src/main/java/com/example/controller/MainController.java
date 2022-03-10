@@ -22,6 +22,12 @@ public class MainController {
     LoginRepository loginRepository;
 
     @Autowired
+    AdminRepository adminRepository;
+
+    @Autowired
+    AdminLoginRepository adminLoginRepository;
+
+    @Autowired
     UsersRepository usersRepository;
 
     @Autowired
@@ -38,6 +44,11 @@ public class MainController {
     @RequestMapping("/login")
     public String login(){
         return "login";
+    }
+
+    @RequestMapping("/admin_login")
+    public String adminLogin(){
+        return "admin_login";
     }
 
     @RequestMapping("/activity")
@@ -142,15 +153,22 @@ public class MainController {
                 return "redirect:/";
             }
         }
-        if(username.contains("add")){
-            Login login = new Login();
-            login.setUsername(username);
-            login.setPassword(password);
-            login.setPPS("123");
-            loginRepository.save(login);
-        }
         request.getSession().setAttribute("login", "false");
         return "redirect:/login";
+    }
+
+    @PostMapping("/adminLoginCheck")
+    public String adminLoginCheck(@RequestParam String username, @RequestParam String password, HttpServletRequest request){
+        if(adminLoginRepository.existsById(username)){
+            if(adminLoginRepository.findById(username).get().getPassword().equals(password)){
+                request.getSession().setAttribute("admin_login", "true");
+                request.getSession().setAttribute("username", username);
+                return "redirect:/";
+            }
+        }
+
+        request.getSession().setAttribute("admin_login", "false");
+        return "redirect:/admin_login";
     }
 
     @PostMapping("/userData")
