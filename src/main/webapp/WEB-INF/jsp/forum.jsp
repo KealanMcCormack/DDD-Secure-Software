@@ -7,15 +7,18 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Last Activity</title>
+    <title>Forum</title>
 </head>
 <body>
+<div style="text-align: center;">
+    <h1>Forum</h1>
+</div>
 <center>
     <h1>
         <% if(request.getSession().getAttribute("username") != null){
             String username = request.getSession().getAttribute("username").toString();
         %>
-        <p>View Last Activity for - <%=username%> - </p>
+        <p>View Forum for - <%=username%> - </p>
         <% } %>
 
     </h1>

@@ -47,7 +47,7 @@
         }
     %>
 
-    <!-- FORUM HERE<a href="">Forum</a>-->
+    <a href="/forum">Forum</a>
 
 </div>
 </body>
