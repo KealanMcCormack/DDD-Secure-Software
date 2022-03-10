@@ -84,6 +84,18 @@
                     <input type="text" name="nationality" size="45" required/>
                 </td>
             </tr>
+
+            <tr>
+                <td style="text-align: center;">
+                    <label>Gender:</label>
+
+                    <select name="gender">
+                        <option value="M">Male</option>
+                        <option value="F">Female</option>
+                        <option value="O">Other</option>
+                    </select>
+                </td>
+            </tr>
             <tr>
                 <td colspan="2" align="center">
                     <input type="submit" value="Submit"/>

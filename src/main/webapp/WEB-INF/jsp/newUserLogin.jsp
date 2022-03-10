@@ -4,11 +4,11 @@
 
 <html>
 <head>
-    <title>Vaccine Registration</title>
+    <title>New User Login</title>
 </head>
 <body>
 <div style="text-align: center;">
-    <h1>Vaccine Registration</h1>
+    <h1>New User Login</h1>
     <h2>
         <a href="/">Back</a>
     </h2>

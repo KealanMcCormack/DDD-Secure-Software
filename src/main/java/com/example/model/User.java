@@ -27,10 +27,13 @@ public class User {
     @NotBlank
     private String nationality;
 
+    @NotBlank
+    private String gender;
+
     public User(){
         super();
     }
-    public User(String email, @NotBlank String name, @NotBlank String surname, @NotBlank String dateOfBirth, @NotBlank String PPS, @NotBlank String address, int phoneNumber, @NotBlank String nationality) {
+    public User(String email, @NotBlank String name, @NotBlank String surname, @NotBlank String dateOfBirth, @NotBlank String PPS, @NotBlank String address, int phoneNumber, @NotBlank String nationality, @NotBlank String gender) {
         this.email = email;
         this.name = name;
         this.surname = surname;
@@ -39,6 +42,7 @@ public class User {
         this.address = address;
         this.phoneNumber = phoneNumber;
         this.nationality = nationality;
+        this.gender = gender;
     }
 
     public String getEmail() {
@@ -103,5 +107,13 @@ public class User {
 
     public void setNationality(String nationality) {
         this.nationality = nationality;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
     }
 }

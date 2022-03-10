@@ -181,7 +181,7 @@ public class MainController {
     }
 
     @PostMapping("/userData")
-    public String createUser(@RequestParam String name, @RequestParam String surname, @RequestParam String email, @RequestParam String PPS, @RequestParam String dateOfBirth, @RequestParam String address, @RequestParam int phoneNumber, @RequestParam String nationality, HttpServletRequest request){
+    public String createUser(@RequestParam String name, @RequestParam String surname, @RequestParam String email, @RequestParam String PPS, @RequestParam String dateOfBirth, @RequestParam String address, @RequestParam int phoneNumber, @RequestParam String nationality, @RequestParam String gender, HttpServletRequest request){
         if(usersRepository.existsById(PPS)){
             request.getSession().setAttribute("already_registered", true);
             return "redirect:/account_register";
@@ -207,6 +207,7 @@ public class MainController {
         user.setAddress(address);
         user.setPhoneNumber(phoneNumber);
         user.setNationality(nationality);
+        user.setGender(gender);
         request.getSession().setAttribute("PPS", PPS);
         request.getSession().setAttribute("NewlyRegistered", "true");
         usersRepository.save(user);
