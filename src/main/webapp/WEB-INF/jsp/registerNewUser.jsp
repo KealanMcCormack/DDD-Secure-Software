@@ -50,7 +50,7 @@
                     <label>User access level:</label>
 
                     <select name="privilege">
-                        <option value="HSE Staff">HSE Staff</option>
+                        <option value="HSE">HSE Staff</option>
                         <option value="Admin">Admin</option>
                     </select>
                 </td>
