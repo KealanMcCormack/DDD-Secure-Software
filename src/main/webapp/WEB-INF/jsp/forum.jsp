@@ -36,13 +36,9 @@
     </h2>
 </center>
 <table id="lastActivity">
-    <tr>
-        <th>Centre Name</th>
-        <th>Time</th>
-        <th>Date</th>
-    </tr>
     <c:forEach items="${forumposts}" var="post">
         <tr>
+            <td>---------------------------COMMENT-----------------------------------</td>
             <td>${post.title}</td>
         </tr>
         <tr>
@@ -51,22 +47,30 @@
         <tr>
             <td>${post.authorName}</td>
         </tr>
-        <c:forEach items="${post.comments}" var="comment">
-            <tr>
-                <td>${comment.comment}</td>
-            </tr>
-            <tr>
-                <td>${comment.poster}</td>
-            </tr>
+        <tr>
+            <td>----------------------COMMENT SECTION----------------------------------</td>
+        </tr>
+        <c:forEach items="${comments}" var="comment">
+            <c:if test="${comment.forumPostId == post.id}" >
+                <tr>
+                    <td>${comment.comment}</td>
+                </tr>
+                <tr>
+                    <td>${comment.poster}</td>
+                </tr>
+                <tr>
+                    <td>------------------</td>
+                </tr>
+            </c:if>
         </c:forEach>
 
         <%
-            if(request.getSession().getAttribute("privilege") != "HSE"){
+            if(request.getSession().getAttribute("privilege") == "HSE"){
         %>
 
         <tr>
             <td>
-                <form action="/addForumComment/${post.id}">
+                <form action="/addForumComment/${post.id}" method="post">
                 <label for="comment">Add a comment:</label>
                 <input type="text" id="comment" name="comment"><br><br>
                 <input type="submit" value="Submit">

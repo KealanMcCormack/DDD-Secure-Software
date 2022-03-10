@@ -9,7 +9,7 @@ import javax.validation.constraints.NotBlank;
 @Entity
 @Table(name="comments")
 public class Comment {
-    public Comment(String comment, String poster, ForumPost forumPost) {
+    public Comment(String comment, String poster) {
         super();
         this.comment = comment;
         this.poster = poster;
@@ -22,9 +22,8 @@ public class Comment {
     private String comment;
     @NotBlank
     private String poster;
-    @ManyToOne
-    @JoinColumn(name="forumPost_id", nullable=false)
-    private ForumPost forumPost;
+
+    private long forumPostId;
 
     public Comment() {
 

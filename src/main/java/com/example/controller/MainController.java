@@ -1,6 +1,5 @@
 package com.example.controller;
 
-import com.example.exception.BookNotFoundException;
 import com.example.model.*;
 import com.example.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,10 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDate;
-import java.time.Month;
-import java.time.Period;
 import java.time.temporal.ChronoUnit;
-import java.util.*;
 
 @Controller
 public class MainController {
@@ -35,6 +31,9 @@ public class MainController {
 
     @Autowired
     VaccineAppointmentRepository vaccineAppointmentRepository;
+
+    @Autowired
+    CommentRepository commentRepository;
 
     @RequestMapping("/vaccine_register")
     public String vaccineRegister(){
@@ -85,24 +84,24 @@ public class MainController {
     @GetMapping("/forum")
     public String forum(Model model){
         model.addAttribute("forumposts", forumPostRepository.findAll());
+        model.addAttribute("comments", commentRepository.findAll());
         return "forum";
     }
 
     @PostMapping("/addForumPost")
     public String addForumPost(HttpServletRequest request, @RequestParam String title, @RequestParam String content){
         ForumPost post = new ForumPost(title, content, (String) request.getSession().getAttribute("username"));
-        Set<Comment> comments =  new HashSet<>();
-        post.setComments(comments);
         forumPostRepository.save(post);
         return "redirect:/forum";
     }
 
     @PostMapping("/addForumComment/{id}")
-    public String addForumComment(@PathVariable int id, HttpServletRequest request, @RequestParam String comment){
-        //ForumPost post = new ForumPost(title, content, (String) request.getSession().getAttribute("username"));
-        Set<Comment> comments =  new HashSet<>();
-        //post.setComments(comments);
-        //forumPostRepository.save(post);
+    public String addForumComment(@PathVariable Long id, HttpServletRequest request, @RequestParam String comment){
+        if(forumPostRepository.findById(id).isPresent()){
+            Comment forumComment = new Comment(comment, (String) request.getSession().getAttribute("username"));
+            forumComment.setForumPostId(id);
+            commentRepository.save(forumComment);
+        }
         return "redirect:/forum";
     }
 
