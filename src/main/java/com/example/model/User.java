@@ -30,6 +30,8 @@ public class User {
     @NotBlank
     private String gender;
 
+    private int vaccinationStage = 0;
+
     public User(){
         super();
     }
@@ -115,5 +117,13 @@ public class User {
 
     public void setGender(String gender) {
         this.gender = gender;
+    }
+
+    public int getVaccinationStage() {
+        return vaccinationStage;
+    }
+
+    public void setVaccinationStage(int vaccinationStage) {
+        this.vaccinationStage = vaccinationStage;
     }
 }

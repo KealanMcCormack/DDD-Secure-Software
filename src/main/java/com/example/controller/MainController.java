@@ -208,6 +208,7 @@ public class MainController {
         user.setPhoneNumber(phoneNumber);
         user.setNationality(nationality);
         user.setGender(gender);
+        user.setVaccinationStage(0);
         request.getSession().setAttribute("PPS", PPS);
         request.getSession().setAttribute("NewlyRegistered", "true");
         usersRepository.save(user);
