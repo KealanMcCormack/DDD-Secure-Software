@@ -124,11 +124,12 @@ public class MainController {
 
         for(VaccineAppointment apt : repoList){
             if(Objects.equals(apt.username, username)) {
+                System.out.println("in if");
                 vaccineAppointments.add(apt);
             }
         }
 
-        model.addAttribute("vaccineAppointment", vaccineAppointments);
+        model.addAttribute("vaccineAppointments", vaccineAppointments);
         model.addAttribute("vaccinationStage", vaccinationStage);
         return "activity";
     }
@@ -151,8 +152,8 @@ public class MainController {
     public String booking(Model model){
         if(initBookingPage){
             vaccineAppointmentRepository.deleteAll();
-            vaccineAppointmentRepository.save(new VaccineAppointment(123, "Kealans house", "13:00", "24-02-2022", "true"));
-            vaccineAppointmentRepository.save(new VaccineAppointment(124, "Lukaszs house", "14:00", "21-02-2022", "false"));
+            vaccineAppointmentRepository.save(new VaccineAppointment("Kealans house", "13:00", "24-02-2022", "true"));
+            vaccineAppointmentRepository.save(new VaccineAppointment("Lukaszs house", "14:00", "21-02-2022", "false"));
             initBookingPage = false;
             System.out.println("IN INIT");
         }
@@ -203,13 +204,19 @@ public class MainController {
         int appointmentID = Integer.parseInt(id);
 
         VaccineAppointment oldApt =  vaccineAppointmentRepository.getById(appointmentID);
-        VaccineAppointment newApt = new VaccineAppointment(appointmentID++, oldApt.getCentre(), oldApt.getTime(), oldApt.getDate(), "true", username);
-        String[] dateArr = oldApt.getTime().split("-");
+        VaccineAppointment newApt = new VaccineAppointment(appointmentID, oldApt.getCentre(), oldApt.getTime(), oldApt.getDate(), "true", username);
+        String[] dateArr = oldApt.getDate().split("-");
+        System.out.println("1 " + dateArr[0] + "\n");
+        System.out.println("2 " + dateArr[1] + "\n");
+        System.out.println("3 " +dateArr[2] + "\n");
         LocalDate secondVaccDate = LocalDate.of(Integer.parseInt(dateArr[2]), Integer.parseInt(dateArr[1]), Integer.parseInt(dateArr[0]));
         String secondVaccDateString = secondVaccDate.plusDays(21L).toString();
+
         vaccineAppointmentRepository.deleteById(appointmentID);
         vaccineAppointmentRepository.save(newApt);
-        vaccineAppointmentRepository.save(new VaccineAppointment(appointmentID++, oldApt.getCentre(), oldApt.getTime(), secondVaccDateString, "true", username));
+
+        // Second vacc date
+        vaccineAppointmentRepository.save(new VaccineAppointment(oldApt.getCentre(), oldApt.getTime(), secondVaccDateString, "true", username));
         return "redirect:/booking";
     }
 

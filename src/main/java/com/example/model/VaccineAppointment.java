@@ -12,6 +12,7 @@ import javax.validation.constraints.NotNull;
 public class VaccineAppointment {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     public int id;
 
     @NotBlank
@@ -40,6 +41,21 @@ public class VaccineAppointment {
 
     public VaccineAppointment(int id, String centre, String time, String date, String isBooked) {
         this.id = id;
+        this.centre = centre;
+        this.time = time;
+        this.date = date;
+        this.isBooked = isBooked;
+    }
+
+    public VaccineAppointment(String centre, String time, String date, String isBooked, String username) {
+        this.centre = centre;
+        this.time = time;
+        this.date = date;
+        this.isBooked = isBooked;
+        this.username = username;
+    }
+
+    public VaccineAppointment(String centre, String time, String date, String isBooked){
         this.centre = centre;
         this.time = time;
         this.date = date;
