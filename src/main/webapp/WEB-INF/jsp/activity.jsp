@@ -37,7 +37,7 @@
                 <td>${appointment.date}</td>
                 <td>
                     <form action="<c:url value= "/activityDelete/${appointment.id}"/>" method="post">
-                        <input type="submit" value="Book">
+                        <input type="submit" value="Cancel Appointment">
                     </form>
                 </td>
             </tr>

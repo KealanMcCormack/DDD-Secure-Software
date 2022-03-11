@@ -146,8 +146,8 @@ public class MainController {
     public String booking(Model model){
         if(initBookingPage){
             vaccineAppointmentRepository.deleteAll();
-            vaccineAppointmentRepository.save(new VaccineAppointment(123, "Kealans house", "13:00", "24th Feb", "true"));
-            vaccineAppointmentRepository.save(new VaccineAppointment(124, "Lukaszs house", "14:00", "21st Feb", "false"));
+            vaccineAppointmentRepository.save(new VaccineAppointment(123, "Kealans house", "13:00", "24-02-22", "true"));
+            vaccineAppointmentRepository.save(new VaccineAppointment(124, "Lukaszs house", "14:00", "21-02-22", "false"));
             initBookingPage = false;
             System.out.println("IN INIT");
         }
@@ -198,10 +198,13 @@ public class MainController {
         int appointmentID = Integer.parseInt(id);
 
         VaccineAppointment oldApt =  vaccineAppointmentRepository.getById(appointmentID);
-        VaccineAppointment newApt = new VaccineAppointment(appointmentID, oldApt.getCentre(), oldApt.getTime(), oldApt.getDate(), "true", username);
-        System.out.println(newApt);
+        VaccineAppointment newApt = new VaccineAppointment(appointmentID++, oldApt.getCentre(), oldApt.getTime(), oldApt.getDate(), "true", username);
+        String[] dateArr = oldApt.time.split("-");
+        LocalDate secondVaccDate = LocalDate.of(Integer.parseInt(dateArr[2]), Integer.parseInt(dateArr[1]), Integer.parseInt(dateArr[0]));
+        String secondVaccDateString = secondVaccDate.plusDays(21L).toString();
         vaccineAppointmentRepository.deleteById(appointmentID);
         vaccineAppointmentRepository.save(newApt);
+        vaccineAppointmentRepository.save(new VaccineAppointment(appointmentID++, oldApt.getCentre(), oldApt.getTime(), secondVaccDateString, "true", username));
         return "redirect:/booking";
     }
 
