@@ -51,6 +51,7 @@
 
     <a href="/forum">Forum</a>
 
+    <a href="/stats">Vaccination Statistics</a>
 </div>
 </body>
 </html>

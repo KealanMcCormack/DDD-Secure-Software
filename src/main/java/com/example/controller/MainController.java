@@ -336,6 +336,10 @@ public class MainController {
             usersRepository.save(newBoi);
         }
 
+        forumPostRepository.save(new ForumPost("How do I vaccine", "How do i get vaccine fast", "Someguy_2"));
+        forumPostRepository.save(new ForumPost("Best vaccine?", "Which is the best vaccine to get", "UserGuy"));
+        forumPostRepository.save(new ForumPost("Where can I complain", "This site looks like something the government would make, straight out of the 1980s", "FunVccineTia"));
+
     }
 
 }
