@@ -8,6 +8,7 @@
 <body>
 <center>
     <h1>Vaccine Booking</h1>
+    <a href="/booking">Book Vaccine</a>
     <% if(request.getSession().getAttribute("username") != null){
         String username = request.getSession().getAttribute("username").toString();
     %>

@@ -12,11 +12,7 @@
     </head>
     <body>
         <table>
-            <tr>
-                <th font-weight="bold">Data</th>
-                <th font-weight="bold">Old</th>
-                <th font-weight="bold">New</th>
-            </tr>
+
         </table>
     </body>
 </html>

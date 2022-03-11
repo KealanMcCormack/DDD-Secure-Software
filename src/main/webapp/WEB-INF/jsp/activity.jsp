@@ -9,20 +9,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Last Activity</title>
 </head>
-<body>
-<center>
-<h1>
-    <div style="text-align: center;">
-        <h2>Last Activity</h2>
-    </div>
-    <% if(request.getSession().getAttribute("username") != null){
-        String username = request.getSession().getAttribute("username").toString();
-    %>
-    <p>View Last Activity for - <%=username%> - </p>
-    <% } %>
+    <body>
+    <center>
+    <h1>
+        <div style="text-align: center;">
+            <h2>Last Activity</h2>
+        </div>
+        <% if(request.getSession().getAttribute("username") != null){
+            String username = request.getSession().getAttribute("username").toString();
+        %>
+        <p>View Last Activity for - <%=username%> - </p>
+        <% } %>
 
-</h1>
-</center>
+    </h1>
+    </center>
 <div style="margin: 0 auto; display: table;">
     <table id="lastActivity">
         <tr>
@@ -35,6 +35,11 @@
                 <td>${appointment.centre}</td>
                 <td>${appointment.time}</td>
                 <td>${appointment.date}</td>
+                <td>
+                    <form action="<c:url value= "/activityDelete/${appointment.id}"/>" method="post">
+                        <input type="submit" value="Book">
+                    </form>
+                </td>
             </tr>
         </c:forEach>
     </table>
