@@ -7,7 +7,7 @@
 </head>
 <body>
 <div style="text-align: center;">
-    <h1>Create New HSE User</h1>
+    <h1 style="border-bottom: 5px solid lightgreen;">Create New HSE User</h1>
 </div>
 <div style="margin: 0 auto; display: table;">
     <form action="/createNewHSEUser" method="post">

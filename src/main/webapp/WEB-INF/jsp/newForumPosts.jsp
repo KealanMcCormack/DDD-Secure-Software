@@ -7,7 +7,7 @@
 </head>
 <body>
 <div style="text-align: center;">
-    <h1>Create a new post</h1>
+    <h1 style="border-bottom: 5px solid lightgreen;">Create a new post</h1>
     <h2>
         <a href="/forum">Back to Forum</a>
     </h2>

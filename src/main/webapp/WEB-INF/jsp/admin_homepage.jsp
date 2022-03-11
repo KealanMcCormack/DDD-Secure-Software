@@ -7,7 +7,7 @@
 </head>
 <body>
 <center>
-    <h1>Admin Homepage</h1>
+    <h1 style="border-bottom: 5px solid lightgreen;">Admin Homepage</h1>
     <% if(request.getSession().getAttribute("username") != null){
         String username = request.getSession().getAttribute("username").toString();
     %>

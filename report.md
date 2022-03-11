@@ -48,5 +48,6 @@ that ensure the backend for the pages functions were made by me.
 - Login.java
 - AdminRepository
 - UserRepository
+- Light styling on the pages
 
 ###Gerard Colman 

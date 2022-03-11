@@ -11,7 +11,7 @@
 </head>
 <body>
 <div style="text-align: center;">
-    <h1>Forum</h1>
+    <h1 style="border-bottom: 5px solid lightgreen;">Forum</h1>
 </div>
 <center>
     <h1>

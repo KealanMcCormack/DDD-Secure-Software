@@ -13,7 +13,7 @@
     <center>
     <h1>
         <div style="text-align: center;">
-            <h2>Last Activity</h2>
+            <h1 style="border-bottom: 5px solid lightgreen;">Last Activity</h1>
         </div>
         <% if(request.getSession().getAttribute("username") != null){
             String username = request.getSession().getAttribute("username").toString();

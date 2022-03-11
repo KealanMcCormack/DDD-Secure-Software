@@ -7,7 +7,7 @@
 </head>
 <body>
 <div style="text-align: center;">
-    <h1>Account Registration</h1>
+    <h1 style="border-bottom: 5px solid lightgreen;">Account Registration</h1>
 </div>
 <div style="margin: 0 auto; display: table;">
     <form action="/userData" method="post">

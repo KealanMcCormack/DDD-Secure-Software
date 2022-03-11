@@ -8,7 +8,7 @@
 </head>
 <body>
 <div style="text-align: center;">
-    <h1>Login</h1>
+    <h1 style="border-bottom: 5px solid lightgreen;">Login</h1>
     <h2>
         <a href="/">Back</a>
     </h2>
