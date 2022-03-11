@@ -45,11 +45,12 @@ public class MainController {
     }
 
     @PostMapping("/viewUserDataChangeVacc/{pps}")
-    public String viewUserDataDelete(@PathVariable("pps") String pps, @RequestParam int newVaccStatus){
+    public String viewUserDataDelete(@PathVariable("pps") String pps, @RequestParam int newVaccStatus, @RequestParam String vaccineType){
         User oldUsr = usersRepository.findById(pps).get();
 
         User newUsr = new User(oldUsr.getEmail(), oldUsr.getName(), oldUsr.getSurname(), oldUsr.getDateOfBirth(), oldUsr.getPPS(), oldUsr.getAddress(), oldUsr.getPhoneNumber(), oldUsr.getNationality(), oldUsr.getGender());
         newUsr.setVaccinationStage(newVaccStatus);
+        newUsr.setVaccineType(vaccineType);
 
         usersRepository.deleteById(pps);
         usersRepository.save(newUsr);
@@ -324,6 +325,12 @@ public class MainController {
             if(loginRepository.findById(username).get().getPassword().equals(password)){
                 request.getSession().setAttribute("login", "true");
                 request.getSession().setAttribute("username", username);
+                String PPS = loginRepository.findById(username).get().getPPS();
+                if(usersRepository.existsById(PPS)){
+                    if(usersRepository.findById(PPS).get().getVaccinationStage() > 1){
+                        request.getSession().setAttribute("vaccinated", "true");
+                    }
+                }
                 return "redirect:/";
             }
         }
