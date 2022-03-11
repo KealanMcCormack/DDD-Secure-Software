@@ -171,13 +171,16 @@ public class MainController {
     public String booking(Model model){
         if(initBookingPage){
             vaccineAppointmentRepository.deleteAll();
-            vaccineAppointmentRepository.save(new VaccineAppointment("Kealans house", "13:00", "24-02-2022", "true"));
-            vaccineAppointmentRepository.save(new VaccineAppointment("Lukaszs house", "14:00", "21-02-2022", "false"));
+            vaccineAppointmentRepository.save(new VaccineAppointment("Churchtown Pharmacy", "13:00", "24-02-2022", "true"));
+            vaccineAppointmentRepository.save(new VaccineAppointment("Churchtown Pharmacy", "14:00", "24-02-2022", "false"));
+            vaccineAppointmentRepository.save(new VaccineAppointment("Churchtown Pharmacy", "15:00", "24-02-2022", "false"));
+            vaccineAppointmentRepository.save(new VaccineAppointment("Churchtown Pharmacy", "16:00", "24-02-2022", "false"));
+            vaccineAppointmentRepository.save(new VaccineAppointment("Churchtown Pharmacy", "17:00", "24-02-2022", "true"));
+            vaccineAppointmentRepository.save(new VaccineAppointment("Dundrum Pharmacy", "13:00", "25-02-2022", "false"));
+            vaccineAppointmentRepository.save(new VaccineAppointment("Dundrum Pharmacy", "14:00", "25-02-2022", "false"));
+            vaccineAppointmentRepository.save(new VaccineAppointment("Dundrum Pharmacy", "15:00", "25-02-2022", "false"));
             initBookingPage = false;
-            System.out.println("IN INIT");
         }
-
-        System.out.println("IN NORMAL");
         model.addAttribute("vaccineAppointments", vaccineAppointmentRepository.findAll());
         return "booking";
     }
@@ -225,9 +228,6 @@ public class MainController {
         VaccineAppointment oldApt =  vaccineAppointmentRepository.getById(appointmentID);
         VaccineAppointment newApt = new VaccineAppointment(appointmentID, oldApt.getCentre(), oldApt.getTime(), oldApt.getDate(), "true", username);
         String[] dateArr = oldApt.getDate().split("-");
-        System.out.println("1 " + dateArr[0] + "\n");
-        System.out.println("2 " + dateArr[1] + "\n");
-        System.out.println("3 " +dateArr[2] + "\n");
         LocalDate secondVaccDate = LocalDate.of(Integer.parseInt(dateArr[2]), Integer.parseInt(dateArr[1]), Integer.parseInt(dateArr[0]));
         String secondVaccDateString = secondVaccDate.plusDays(21L).toString();
 
