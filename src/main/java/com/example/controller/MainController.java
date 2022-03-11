@@ -2,6 +2,7 @@ package com.example.controller;
 
 import com.example.model.*;
 import com.example.repository.*;
+import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,6 +11,8 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
+import java.util.HashMap;
+import java.util.List;
 
 @Controller
 public class MainController {
@@ -36,6 +39,54 @@ public class MainController {
     CommentRepository commentRepository;
 
     boolean initBookingPage = true;
+
+    @RequestMapping("/stats")
+    public String stats(Model model){
+        List<User> users = usersRepository.findAll();
+        HashMap<String, Integer> gender = new HashMap<>();
+        gender.put("M", 0);
+        gender.put("F", 0);
+        gender.put("O", 0);
+        for(String n : gender.keySet()){
+            int count = 0;
+            for(User user : users){
+               if(user.getVaccinationStage() != 0 && user.getGender().equals(n)){
+                    count++;
+               }
+            }
+            gender.replace(n, count);
+        }
+
+        model.addAttribute("Male", gender.get("M"));
+        model.addAttribute("Female", gender.get("F"));
+        model.addAttribute("Other", gender.get("O"));
+
+        for(String n : gender.keySet()){
+            int count = 0;
+            for(User user : users){
+                if(user.getVaccinationStage() == 0 && user.getGender().equals(n)){
+                    count++;
+                }
+            }
+            gender.replace(n, count);
+        }
+
+        model.addAttribute("MaleNoVac", gender.get("M"));
+        model.addAttribute("FemaleNoVac", gender.get("F"));
+        model.addAttribute("OtherNoVac", gender.get("O"));
+
+        return "stats";
+    }
+    @Data
+    private class Tuple{
+        String data;
+        int num;
+
+        public Tuple(String n, int count) {
+            this.data = n;
+            this.num = count;
+        }
+    }
 
     @RequestMapping("/vaccine_register")
     public String vaccineRegister(){
@@ -256,7 +307,20 @@ public class MainController {
     // See All Books on Homepage
     @RequestMapping({"/"})
     public String viewHomePage(){
+        if(usersRepository.findAll().isEmpty()){
+            createData();
+        }
         return "homepage";
+    }
+
+    public void createData(){
+        String[] nation = new String[]{"Irish", "American", "Italian", "Polish"};
+        String[] gender = new String[]{"M", "F", "O"};
+        for(int i = 0; i < 50; i++){
+            User newBoi = new User("Ahdw231" + i, nation[i % 4], gender[i % 3], i%3);
+            usersRepository.save(newBoi);
+        }
+
     }
 
 }

@@ -4,8 +4,6 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
-import java.time.LocalDate;
 
 @Entity
 @Table(name = "users")
@@ -46,6 +44,20 @@ public class User {
         this.nationality = nationality;
         this.gender = gender;
     }
+
+    public User(String PPS, String nationality, String gender, int vaccinationStage){
+        this.email = "doesntmatter@gmail.com";
+        this.name = "Lukasz";
+        this.surname = "Filanowski";
+        this.dateOfBirth = "1999-01-20";
+        this.PPS = PPS;
+        this.address = "Whatever, whatever street";
+        this.phoneNumber = 011321234;
+        this.nationality = nationality;
+        this.gender = gender;
+        this.vaccinationStage = vaccinationStage;
+    }
+
 
     public String getEmail() {
         return email;
