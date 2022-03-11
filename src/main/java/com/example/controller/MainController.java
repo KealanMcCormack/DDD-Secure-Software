@@ -118,6 +118,10 @@ public class MainController {
         List<VaccineAppointment> repoList = vaccineAppointmentRepository.findAll();
         String username = (String) servletRequest.getSession().getAttribute("username");
 
+        Login login = loginRepository.getById(username);
+        String PPS = login.getPPS();
+        int vaccinationStage = usersRepository.getById(PPS).getVaccinationStage();
+
         for(VaccineAppointment apt : repoList){
             if(Objects.equals(apt.username, username)) {
                 vaccineAppointments.add(apt);
@@ -125,6 +129,7 @@ public class MainController {
         }
 
         model.addAttribute("vaccineAppointment", vaccineAppointments);
+        model.addAttribute("vaccinationStage", vaccinationStage);
         return "activity";
     }
 

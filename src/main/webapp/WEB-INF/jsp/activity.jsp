@@ -18,7 +18,10 @@
         <% if(request.getSession().getAttribute("username") != null){
             String username = request.getSession().getAttribute("username").toString();
         %>
-        <p>View Last Activity for - <%=username%> - </p>
+        <p>View Last Activity for - <%=username%> - </p><br>
+        <p>
+            <c:out value="Vaccination Stage = ${vaccinationStage}"/>
+        </p>
         <% } %>
 
     </h1>
