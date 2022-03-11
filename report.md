@@ -50,4 +50,14 @@ that ensure the backend for the pages functions were made by me.
 - UserRepository
 - Light styling on the pages
 
-###Gerard Colman 
+###Gerard Colman
+For this project I worked on the vaccination book page, worked on the activity page, and I worked on the viewUserData page.
+I also created the VaccinationAppointment repo and any accompanying functions in the main controller providing backend support.
+
+###Components worked on by Gerard Colman
+- viewUserData.jsp
+- booking.jsp
+- activity.jsp
+- userEdit.jsp
+- VaccinationAppointment Repo and Datatypes
+- admin_homepage.jsp
