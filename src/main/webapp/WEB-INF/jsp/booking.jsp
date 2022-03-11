@@ -12,6 +12,11 @@
     <title>Booking</title>
 </head>
 <body>
+<div style="text-align: center;">
+    <h2>
+        <a href="/">Back</a>
+    </h2>
+</div>
 <table class="bookingTable">
     <tr>
         <th>Centre Name</th>

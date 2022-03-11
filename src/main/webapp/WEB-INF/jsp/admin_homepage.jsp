@@ -22,11 +22,13 @@
         <a href="/registerNewUser">Register new HSE User</a>
     <% } %>
 
-    <a href="/logout">Logout</a>
-
     <!-- VIEW USER DATA<a href=">View User Data</a>-->
 
     <a href="/forum">Forum</a>
+
+    <a href="/stats">Vaccination Statistics</a>
+
+    <a href="/logout">Logout</a>
 </h2>
 
 

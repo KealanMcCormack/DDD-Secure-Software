@@ -62,6 +62,22 @@
 </head>
 
 <body>
+<div style="text-align: center;">
+    <h2>
+        <%
+            if(request.getSession().getAttribute("privilege") != null){
+        %>
+        <a href="/admin_homepage">Back</a>
+        <%
+        } else{
+        %>
+        <a href="/">Back</a>
+        <%
+            }
+        %>
+
+    </h2>
+</div>
 <!--Div that will hold the pie chart-->
 <div align="center" style="width: 1000px;">
     <h2>Statistics for the Vaccination Programme</h2>

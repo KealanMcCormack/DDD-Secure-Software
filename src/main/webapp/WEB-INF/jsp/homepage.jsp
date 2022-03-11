@@ -7,8 +7,7 @@
 </head>
 <body>
 <center>
-    <h1>Vaccine Booking</h1>
-    <a href="/booking">Book Vaccine</a>
+    <h1>Welcome to the HSE Vaccine Website</h1>
     <% if(request.getSession().getAttribute("username") != null){
         String username = request.getSession().getAttribute("username").toString();
     %>
@@ -18,9 +17,9 @@
     <h2>
         <a href="/login">Login</a>
 
-        <a href="/logout">Logout</a>
+        <a href="/admin_login">HSE Login</a>
 
-        <a href="/admin_login">Admin Login</a>
+        <a href="/logout">Logout</a>
 
     </h2>
 </center>
@@ -37,10 +36,11 @@
     <%
         if(request.getSession().getAttribute("login") != null){
     %>
-    <a href="/vaccine_register">Register to Vaccine</a>
+    <a href="/booking">Book Vaccine</a>
     <%
         }
     %>
+
 
     <%
         if(request.getSession().getAttribute("login") != null){
