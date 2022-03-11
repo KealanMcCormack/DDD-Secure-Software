@@ -1,21 +1,29 @@
 # DDD-Secure-Software
-Secure software engineering project for COMP47660 Secure Software Engineering 
+Repository for Secure Software Engineering COMP47660 
+
+##Group Name: Dumb Dumber Dumbest
+
+##Contributors:
+- Kealan McCormack 18312236
+- Lukasz Filanowski 18414616
+- Gerard Colman 18327576
 
 
-Ideas for Pages
+
+Pages
   - Homepage - Lukasz
   - Registration - Lukasz
-  - Sub page for account registration(Username+Password) - Lukasz
+  - Sub page for account registration(Username+Password) - Kealan
   - Login (Should this be for all or separate admin login) - Kealan
     - Decide what flags admin
-  - Vaccine booking - Jeevess
+  - Vaccine booking - Gerard
     - Scripts for filling tables, new vaccine table
   - Record of last activity / Current appointment - Lukasz
     - Same page, if current appointment need to be able to cancel
   - Stats page - Kealan
     - Ours
   - Forum - Kealan
-  - HSE User update - Jeeves
+  - HSE User update - Gerard
 
 
 Other Things to look into
