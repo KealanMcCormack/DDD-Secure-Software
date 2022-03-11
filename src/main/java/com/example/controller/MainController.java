@@ -11,10 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 @Controller
 public class MainController {
@@ -38,6 +35,26 @@ public class MainController {
     CommentRepository commentRepository;
 
     boolean initBookingPage = true;
+
+    @GetMapping("/viewUserData")
+    public String viewUserData(Model model){
+
+        List<User> userRepo = usersRepository.findAll();
+        model.addAttribute("users", userRepo);
+        return "viewUserData";
+    }
+
+    @PostMapping("/viewUserDataChangeVacc/{pps}")
+    public String viewUserDataDelete(@PathVariable("pps") String pps, @RequestParam int newVaccStatus){
+        User oldUsr = usersRepository.findById(pps).get();
+
+        User newUsr = new User(oldUsr.getEmail(), oldUsr.getName(), oldUsr.getSurname(), oldUsr.getDateOfBirth(), oldUsr.getPPS(), oldUsr.getAddress(), oldUsr.getPhoneNumber(), oldUsr.getNationality(), oldUsr.getGender());
+        newUsr.setVaccinationStage(newVaccStatus);
+
+        usersRepository.deleteById(pps);
+        usersRepository.save(newUsr);
+        return "redirect:/viewUserData";
+    }
 
     @RequestMapping("/stats")
     public String stats(Model model){
@@ -121,6 +138,7 @@ public class MainController {
         Login login = loginRepository.getById(username);
         String PPS = login.getPPS();
         int vaccinationStage = usersRepository.getById(PPS).getVaccinationStage();
+        String vaccineType = usersRepository.getById(PPS).getVaccineType();
 
         for(VaccineAppointment apt : repoList){
             if(Objects.equals(apt.username, username)) {
@@ -131,6 +149,7 @@ public class MainController {
 
         model.addAttribute("vaccineAppointments", vaccineAppointments);
         model.addAttribute("vaccinationStage", vaccinationStage);
+        model.addAttribute("vaccineType", vaccineType);
         return "activity";
     }
 

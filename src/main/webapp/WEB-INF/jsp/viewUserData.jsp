@@ -9,6 +9,29 @@
     <title>Edit User Data</title>
 </head>
 <body>
-
+    <h2>All Appointments</h2>
+    <table>
+        <tr>
+            <th>Centre Name</th>
+            <th>Time</th>
+            <th>Date</th>
+            <th>Username</th>
+        </tr>
+        <c:forEach items="${users}" var="usr">
+            <tr>
+                <td>${usr.name}</td>
+                <td>${usr.surname}</td>
+                <td>${usr.email}</td>
+                <td>vaccination status: ${usr.vaccinationStage}</td>
+                <td>
+                    Change vaccination status:
+                    <form action="<c:url value= "/viewUserDataChangeVacc/${usr.PPS}"/>" method="post">
+                        <input type="number" name="newVaccStatus">
+                        <input type="submit" value="Change Vaccination Status">
+                    </form>
+                </td>
+            </tr>
+        </c:forEach>
+    </table>
 </body>
 </html>

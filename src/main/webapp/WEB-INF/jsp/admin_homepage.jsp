@@ -22,7 +22,10 @@
         <a href="/registerNewUser">Register new HSE User</a>
     <% } %>
 
-    <!-- VIEW USER DATA<a href=">View User Data</a>-->
+    <% if(request.getSession().getAttribute("privilege").equals("HSE")){%>
+        <a href="/viewUserData">View User Data</a>
+    <% } %>
+
 
     <a href="/forum">Forum</a>
 

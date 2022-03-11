@@ -20,7 +20,8 @@
         %>
         <p>View Last Activity for - <%=username%> - </p><br>
         <p>
-            <c:out value="Vaccination Stage = ${vaccinationStage}"/>
+            <c:out value="Vaccination Stage = ${vaccinationStage}"/><br>
+            <c:out value="Vaccine Type = ${vaccineType}"/>
         </p>
         <% } %>
 

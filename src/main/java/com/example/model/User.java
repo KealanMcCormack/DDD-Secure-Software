@@ -28,6 +28,17 @@ public class User {
     @NotBlank
     private String gender;
 
+    public String getVaccineType() {
+        return vaccineType;
+    }
+
+    public void setVaccineType(String vaccineType) {
+        this.vaccineType = vaccineType;
+    }
+
+    @NotBlank
+    private String vaccineType = "pfizer";
+
     private int vaccinationStage = 0;
 
     public User(){
@@ -43,6 +54,7 @@ public class User {
         this.phoneNumber = phoneNumber;
         this.nationality = nationality;
         this.gender = gender;
+        this.vaccineType = "Pfizer";
     }
 
     public User(String PPS, String nationality, String gender, int vaccinationStage){
@@ -56,6 +68,7 @@ public class User {
         this.nationality = nationality;
         this.gender = gender;
         this.vaccinationStage = vaccinationStage;
+        this.vaccineType = "Moderna";
     }
 
 
