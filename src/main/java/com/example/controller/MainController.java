@@ -11,8 +11,10 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Objects;
 
 @Controller
 public class MainController {
@@ -111,8 +113,27 @@ public class MainController {
     }
 
     @RequestMapping("/activity")
-    public String activity(){
+    public String activity(Model model, HttpServletRequest servletRequest){
+        ArrayList<VaccineAppointment> vaccineAppointments = new ArrayList<>();
+        List<VaccineAppointment> repoList = vaccineAppointmentRepository.findAll();
+        String username = (String) servletRequest.getSession().getAttribute("username");
+
+        for(VaccineAppointment apt : repoList){
+            if(Objects.equals(apt.username, username)) {
+                vaccineAppointments.add(apt);
+            }
+        }
+
+        model.addAttribute("vaccineAppointment", vaccineAppointments);
         return "activity";
+    }
+
+    @PostMapping("/activityDelete/{id}")
+    public String activityDelete(@PathVariable("id") String id){
+        int aptId = Integer.parseInt(id);
+        vaccineAppointmentRepository.deleteById(aptId);
+
+        return "redirect:/activity";
     }
 
     @RequestMapping("/logout")
