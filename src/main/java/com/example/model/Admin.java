@@ -21,6 +21,15 @@ public class Admin {
     @NotNull
     private String password;
 
+    public Admin(){}
+
+    public Admin(String email, String username, String password, String privilege) {
+        this.email = email;
+        this.username = username;
+        this.password = password;
+        this.privilege = privilege;
+    }
+
     @NotNull
     private String privilege;
 }

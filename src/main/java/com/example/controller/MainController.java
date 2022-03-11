@@ -236,14 +236,6 @@ public class MainController {
 
     @PostMapping("/adminLoginCheck")
     public String adminLoginCheck(@RequestParam String username, @RequestParam String password, HttpServletRequest request){
-        if(username.contains("add") && !(adminRepository.existsById(username))){
-            Admin admin = new Admin();
-            admin.setEmail("admin@hse.ie");
-            admin.setUsername(username);
-            admin.setPassword(password);
-            admin.setPrivilege("Admin");
-            adminRepository.save(admin);
-        }
 
         if(adminRepository.existsById(username)){
             if(adminRepository.findById(username).get().getPassword().equals(password)){
@@ -339,6 +331,9 @@ public class MainController {
         forumPostRepository.save(new ForumPost("How do I vaccine", "How do i get vaccine fast", "Someguy_2"));
         forumPostRepository.save(new ForumPost("Best vaccine?", "Which is the best vaccine to get", "UserGuy"));
         forumPostRepository.save(new ForumPost("Where can I complain", "This site looks like something the government would make, straight out of the 1980s", "FunVccineTia"));
+
+        adminRepository.save(new Admin("ads@gmail.com", "mainAdmin", "superSecurePassword123", "Admin"));
+        loginRepository.save(new Login("bingus", "bingus", "Ahdw2310"));
 
     }
 

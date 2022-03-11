@@ -28,7 +28,7 @@
             <tr>
                 <th>Content: </th>
                 <td>
-                    <input type="text" name="content" size="600" required/>
+                    <input type="text" name="content" size="200" required/>
                 </td>
             </tr>
             <tr>

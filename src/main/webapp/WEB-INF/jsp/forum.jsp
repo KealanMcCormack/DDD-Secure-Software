@@ -23,7 +23,17 @@
 
     </h1>
     <h2>
+        <%
+            if(request.getSession().getAttribute("privilege") != null){
+        %>
+        <a href="/admin_homepage">Back</a>
+        <%
+            } else{
+        %>
         <a href="/">Back</a>
+        <%
+            }
+        %>
         &nbsp;&nbsp;
         <%
             if(request.getSession().getAttribute("username") != null){
@@ -39,13 +49,15 @@
     <c:forEach items="${forumposts}" var="post">
         <tr>
             <td>---------------------------COMMENT-----------------------------------</td>
-            <td>${post.title}</td>
         </tr>
         <tr>
-            <td>${post.content}</td>
+            <td>Title : ${post.title}</td>
         </tr>
         <tr>
-            <td>${post.authorName}</td>
+            <td>Content: ${post.content}</td>
+        </tr>
+        <tr>
+            <td>Author of Post : ${post.authorName}</td>
         </tr>
         <tr>
             <td>----------------------COMMENT SECTION----------------------------------</td>
@@ -53,10 +65,10 @@
         <c:forEach items="${comments}" var="comment">
             <c:if test="${comment.forumPostId == post.id}" >
                 <tr>
-                    <td>${comment.comment}</td>
+                    <td>Comment : ${comment.comment}</td>
                 </tr>
                 <tr>
-                    <td>${comment.poster}</td>
+                    <td>Author of Comment : ${comment.poster}</td>
                 </tr>
                 <tr>
                     <td>------------------</td>
@@ -65,7 +77,7 @@
         </c:forEach>
 
         <%
-            if(request.getSession().getAttribute("privilege").equals("HSE")){
+            if(request.getSession().getAttribute("privilege") != null && request.getSession().getAttribute("privilege").equals("HSE")){
         %>
 
         <tr>
