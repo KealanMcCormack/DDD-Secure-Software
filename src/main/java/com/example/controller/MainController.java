@@ -91,6 +91,43 @@ public class MainController {
         model.addAttribute("FemaleNoVac", gender.get("F"));
         model.addAttribute("OtherNoVac", gender.get("O"));
 
+        ArrayList<Tuple> listNonVaccinated =  new ArrayList<>();
+        ArrayList<Tuple> listVaccinated =  new ArrayList<>();
+        HashMap<String, Integer> nationMap = new HashMap<>();
+        users.forEach(n -> nationMap.put(n.getNationality(), 0));
+
+        for(String n : nationMap.keySet()){
+            int count = 0;
+            int i = 0;
+            for(User user : users){
+                if(user.getVaccinationStage() == 0 && user.getNationality().equals(n)){
+                    count++;
+                }else if(user.getVaccinationStage() != 0 && user.getNationality().equals(n)){
+                    i++;
+                }
+            }
+            listNonVaccinated.add(new Tuple(n, count));
+            listVaccinated.add(new Tuple(n, i));
+        }
+
+        String str = "[";
+        for(Tuple tuple : listNonVaccinated){
+            str = str.concat(tuple.toString());
+        }
+
+        str= str.substring(0, str.length() - 1);
+        str = str.concat("]");
+        model.addAttribute("nationData", str);
+
+        String str2 = "[";
+        for(Tuple tuple : listVaccinated){
+            str2 = str2.concat(tuple.toString());
+        }
+
+        str2 = str2.substring(0, str2.length() - 1);
+        str2 = str2.concat("]");
+        model.addAttribute("nationData2", str2);
+
         return "stats";
     }
     @Data
@@ -102,6 +139,11 @@ public class MainController {
             this.data = n;
             this.num = count;
         }
+
+        public String toString(){
+            return "[\"" + data +"\", " + num + "],";
+        }
+
     }
 
     @RequestMapping("/vaccine_register")
