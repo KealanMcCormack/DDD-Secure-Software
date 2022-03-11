@@ -17,7 +17,12 @@
 </center>
 <div align="center">
 <h2>
-    <a href="/registerNewUser">Register new HSE User</a>
+    <% if(request.getSession().getAttribute("privilege").equals("Admin")){
+    %>
+        <a href="/registerNewUser">Register new HSE User</a>
+    <% } %>
+
+    <a href="/logout">Logout</a>
 
     <!-- VIEW USER DATA<a href=">View User Data</a>-->
 

@@ -13,10 +13,10 @@ import javax.validation.constraints.NotNull;
 @Table(name = "admins")
 public class Admin {
 
-    @Id
+    @NotBlank
     private String email;
 
-    @NotBlank
+    @Id
     private String username;
     @NotNull
     private String password;

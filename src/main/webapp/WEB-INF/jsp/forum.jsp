@@ -65,7 +65,7 @@
         </c:forEach>
 
         <%
-            if(request.getSession().getAttribute("privilege") == "HSE"){
+            if(request.getSession().getAttribute("privilege").equals("HSE")){
         %>
 
         <tr>

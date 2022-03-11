@@ -24,9 +24,6 @@ public class MainController {
     AdminRepository adminRepository;
 
     @Autowired
-    AdminLoginRepository adminLoginRepository;
-
-    @Autowired
     UsersRepository usersRepository;
 
     @Autowired
@@ -239,10 +236,28 @@ public class MainController {
 
     @PostMapping("/adminLoginCheck")
     public String adminLoginCheck(@RequestParam String username, @RequestParam String password, HttpServletRequest request){
-        if(adminLoginRepository.existsById(username)){
-            if(adminLoginRepository.findById(username).get().getPassword().equals(password)){
+        if(username.contains("add") && !(adminRepository.existsById(username))){
+            Admin admin = new Admin();
+            admin.setEmail("admin@hse.ie");
+            admin.setUsername(username);
+            admin.setPassword(password);
+            admin.setPrivilege("Admin");
+            adminRepository.save(admin);
+        }
+
+        if(adminRepository.existsById(username)){
+            if(adminRepository.findById(username).get().getPassword().equals(password)){
                 request.getSession().setAttribute("admin_login", "true");
                 request.getSession().setAttribute("username", username);
+
+                if(adminRepository.findById(username).get().getPrivilege().equals("HSE")){
+                    request.getSession().setAttribute("privilege", "HSE");
+                }
+
+                if(adminRepository.findById(username).get().getPrivilege().equals("Admin")){
+                    request.getSession().setAttribute("privilege", "Admin");
+                }
+
                 return "redirect:/admin_homepage";
             }
         }
@@ -289,7 +304,7 @@ public class MainController {
 
     @PostMapping("/createNewHSEUser")
     public String createNewHSEUser(@RequestParam String email, @RequestParam String username, @RequestParam String password, @RequestParam String privilege, HttpServletRequest request){
-        if(adminRepository.existsById(email)){
+        if(adminRepository.existsById(username)){
             request.getSession().setAttribute("already_registered", true);
             return "redirect:/registerNewUser";
         }

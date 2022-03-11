@@ -46,7 +46,6 @@ that ensure the backend for the pages functions were made by me.
 - Admin.java
 - User.java
 - Login.java
-- AdminLoginRepository
 - AdminRepository
 - UserRepository
 
