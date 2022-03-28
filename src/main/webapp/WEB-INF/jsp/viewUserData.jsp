@@ -9,7 +9,10 @@
     <title>Edit User Data</title>
 </head>
 <body>
-    <h2>All Appointments</h2>
+    <h2>
+        All Appointments
+        <a href="/admin_homepage">Back</a>
+    </h2>
     <table>
         <tr>
             <th>Centre Name</th>
@@ -24,9 +27,10 @@
                 <td>${usr.email}</td>
                 <td>vaccination status: ${usr.vaccinationStage}</td>
                 <td>
-                    Change vaccination status:
+                    Change vaccination status and specify type :
                     <form action="<c:url value= "/viewUserDataChangeVacc/${usr.PPS}"/>" method="post">
                         <input type="number" name="newVaccStatus">
+                        <input type="text" name="vaccineType">
                         <input type="submit" value="Change Vaccination Status">
                     </form>
                 </td>

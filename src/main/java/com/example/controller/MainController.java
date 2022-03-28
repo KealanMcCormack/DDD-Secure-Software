@@ -45,11 +45,12 @@ public class MainController {
     }
 
     @PostMapping("/viewUserDataChangeVacc/{pps}")
-    public String viewUserDataDelete(@PathVariable("pps") String pps, @RequestParam int newVaccStatus){
+    public String viewUserDataDelete(@PathVariable("pps") String pps, @RequestParam int newVaccStatus, @RequestParam String vaccineType){
         User oldUsr = usersRepository.findById(pps).get();
 
         User newUsr = new User(oldUsr.getEmail(), oldUsr.getName(), oldUsr.getSurname(), oldUsr.getDateOfBirth(), oldUsr.getPPS(), oldUsr.getAddress(), oldUsr.getPhoneNumber(), oldUsr.getNationality(), oldUsr.getGender());
         newUsr.setVaccinationStage(newVaccStatus);
+        newUsr.setVaccineType(vaccineType);
 
         usersRepository.deleteById(pps);
         usersRepository.save(newUsr);
@@ -91,6 +92,43 @@ public class MainController {
         model.addAttribute("FemaleNoVac", gender.get("F"));
         model.addAttribute("OtherNoVac", gender.get("O"));
 
+        ArrayList<Tuple> listNonVaccinated =  new ArrayList<>();
+        ArrayList<Tuple> listVaccinated =  new ArrayList<>();
+        HashMap<String, Integer> nationMap = new HashMap<>();
+        users.forEach(n -> nationMap.put(n.getNationality(), 0));
+
+        for(String n : nationMap.keySet()){
+            int count = 0;
+            int i = 0;
+            for(User user : users){
+                if(user.getVaccinationStage() == 0 && user.getNationality().equals(n)){
+                    count++;
+                }else if(user.getVaccinationStage() != 0 && user.getNationality().equals(n)){
+                    i++;
+                }
+            }
+            listNonVaccinated.add(new Tuple(n, count));
+            listVaccinated.add(new Tuple(n, i));
+        }
+
+        String str = "[";
+        for(Tuple tuple : listNonVaccinated){
+            str = str.concat(tuple.toString());
+        }
+
+        str= str.substring(0, str.length() - 1);
+        str = str.concat("]");
+        model.addAttribute("nationData", str);
+
+        String str2 = "[";
+        for(Tuple tuple : listVaccinated){
+            str2 = str2.concat(tuple.toString());
+        }
+
+        str2 = str2.substring(0, str2.length() - 1);
+        str2 = str2.concat("]");
+        model.addAttribute("nationData2", str2);
+
         return "stats";
     }
     @Data
@@ -102,6 +140,11 @@ public class MainController {
             this.data = n;
             this.num = count;
         }
+
+        public String toString(){
+            return "[\"" + data +"\", " + num + "],";
+        }
+
     }
 
     @RequestMapping("/vaccine_register")
@@ -282,6 +325,12 @@ public class MainController {
             if(loginRepository.findById(username).get().getPassword().equals(password)){
                 request.getSession().setAttribute("login", "true");
                 request.getSession().setAttribute("username", username);
+                String PPS = loginRepository.findById(username).get().getPPS();
+                if(usersRepository.existsById(PPS)){
+                    if(usersRepository.findById(PPS).get().getVaccinationStage() > 1){
+                        request.getSession().setAttribute("vaccinated", "true");
+                    }
+                }
                 return "redirect:/";
             }
         }

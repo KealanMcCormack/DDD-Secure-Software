@@ -5,6 +5,10 @@
 - Lukasz Filanowski 18414616
 - Gerard Colman 18327576
 
+##Work Split
+Our work was split evenly with each member have 33% percent of the work.
+Some pages were harder than others hence why some members have less pages worked on
+
 ##Member Contributions
 
 ###Kealan McCormack
