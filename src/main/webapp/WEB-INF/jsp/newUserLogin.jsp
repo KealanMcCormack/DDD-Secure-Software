@@ -41,7 +41,9 @@
             <tr>
                 <th>Password: </th>
                 <td>
-                    <input type="password" name="password" size="45" required/>
+                    <input type="password" name="password" size="45" required autocomplete="new-password"
+                           passwordrules="required: upper; required: lower; required: digit;
+                     minlength: 25; allowed: [-().&@?'#,/&quot;+]; max-consecutive: 2"/>
                 </td>
             </tr>
             <tr>

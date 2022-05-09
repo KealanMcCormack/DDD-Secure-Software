@@ -37,7 +37,9 @@
             <tr>
                 <th>Username: </th>
                 <td>
-                    <input type="text" name="username" size="45" required/>
+                    <label>
+                        <input type="text" name="username" size="45" required/>
+                    </label>
                 </td>
             </tr>
 

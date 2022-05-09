@@ -56,7 +56,7 @@
             <tr>
                 <th>PPS: </th>
                     <td>
-                        <input type="text" name="PPS" size="45" required/>
+                        <input type="text" name="PPS" size="9" minlength="8" required/>
                     </td>
             </tr>
             <tr>
@@ -69,13 +69,13 @@
             <tr>
                 <th>Phone Number: </th>
                 <td>
-                    <input type="number" name="phoneNumber" size="45" required/>
+                    <input type="tel" name="phoneNumber" size="14" minlength="6" required/>
                 </td>
             </tr>
             <tr>
                 <th>Date of Birth: </th>
                 <td>
-                    <input type="date" name="dateOfBirth" size="45" required/>
+                    <input type="date" name="dateOfBirth" size="12" required/>
                 </td>
             </tr>
             <tr>
@@ -87,13 +87,13 @@
 
             <tr>
                 <td style="text-align: center;">
-                    <label>Gender:</label>
-
-                    <select name="gender">
-                        <option value="M">Male</option>
-                        <option value="F">Female</option>
-                        <option value="O">Other</option>
-                    </select>
+                    <label>Gender:
+                        <select name="gender">
+                            <option value="M">Male</option>
+                            <option value="F">Female</option>
+                            <option value="O">Other</option>
+                        </select>
+                    </label>
                 </td>
             </tr>
             <tr>

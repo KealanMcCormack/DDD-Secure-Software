@@ -3,7 +3,10 @@ package com.example.controller;
 import com.example.model.*;
 import com.example.repository.*;
 import lombok.Data;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -11,11 +14,15 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Objects;
 
 @Controller
 public class MainController {
-
+    private final Logger logger = LogManager.getLogger(MainController.class);
+    BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
     @Autowired
     LoginRepository loginRepository;
 
@@ -303,7 +310,7 @@ public class MainController {
             } else{
                 Login login = new Login();
                 login.setUsername(username);
-                login.setPassword(password);
+                login.setPassword(passwordEncoder.encode(password));
 
                 String PPS = (String) request.getSession().getAttribute("PPS");
 
@@ -322,7 +329,7 @@ public class MainController {
     @PostMapping("/loginCheck")
     public String loginCheck(@RequestParam String username, @RequestParam String password, HttpServletRequest request){
         if(loginRepository.existsById(username)){
-            if(loginRepository.findById(username).get().getPassword().equals(password)){
+            if(loginRepository.findById(username).get().getPassword().equals(passwordEncoder.encode(password))){
                 request.getSession().setAttribute("login", "true");
                 request.getSession().setAttribute("username", username);
                 String PPS = loginRepository.findById(username).get().getPPS();
@@ -342,7 +349,7 @@ public class MainController {
     public String adminLoginCheck(@RequestParam String username, @RequestParam String password, HttpServletRequest request){
 
         if(adminRepository.existsById(username)){
-            if(adminRepository.findById(username).get().getPassword().equals(password)){
+            if(adminRepository.findById(username).get().getPassword().equals(passwordEncoder.encode(password))){
                 request.getSession().setAttribute("admin_login", "true");
                 request.getSession().setAttribute("username", username);
 
@@ -408,7 +415,7 @@ public class MainController {
         Admin admin = new Admin();
         admin.setEmail(email);
         admin.setUsername(username);
-        admin.setPassword(password);
+        admin.setPassword(passwordEncoder.encode(password));
         admin.setPrivilege(privilege);
         adminRepository.save(admin);
 

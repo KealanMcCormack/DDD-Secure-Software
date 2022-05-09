@@ -1,10 +1,10 @@
-package com.practical.one;
+package com.example;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class OneApplicationTests {
+class VaccineApplicationTests {
 
 	@Test
 	void contextLoads() {
