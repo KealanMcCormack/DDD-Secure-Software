@@ -11,6 +11,7 @@ import javax.validation.constraints.NotNull;
 @Table(name = "login")
 public class Login {
     @Id
+    @NotNull
     private String username;
     @NotNull
     private String password;
