@@ -26,11 +26,15 @@ public class SecSecurityConfig extends WebSecurityConfigurerAdapter {
                 .contentSecurityPolicy("script-src 'self'");
 
         http
+                .csrf().disable();
+
+        http
+                .requiresChannel(channel ->
+                        channel.anyRequest().requiresSecure());
+
+        http
                 .authorizeRequests()
-                .antMatchers("/admin/**").hasRole("ADMIN")
-                .antMatchers("/anonymous*").anonymous()
-                .antMatchers("/*").permitAll()
-                .anyRequest().authenticated()
+                .antMatchers("/**").permitAll()
                 .and()
                 .formLogin()
                 .loginPage("/")

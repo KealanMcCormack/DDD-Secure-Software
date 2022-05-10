@@ -58,7 +58,7 @@ public class MainController {
         User newUsr = new User(oldUsr.getEmail(), oldUsr.getName(), oldUsr.getSurname(), oldUsr.getDateOfBirth(), oldUsr.getPPS(), oldUsr.getAddress(), oldUsr.getPhoneNumber(), oldUsr.getNationality(), oldUsr.getGender());
         newUsr.setVaccinationStage(newVaccStatus);
         newUsr.setVaccineType(vaccineType);
-
+        logger.info(newUsr.getEmail() + " Vaccination status updated : " + newVaccStatus + " , Vaccine type : " +vaccineType);
         usersRepository.deleteById(pps);
         usersRepository.save(newUsr);
         return "redirect:/viewUserData";
@@ -245,6 +245,7 @@ public class MainController {
     @PostMapping("/addForumPost")
     public String addForumPost(HttpServletRequest request, @RequestParam String title, @RequestParam String content){
         ForumPost post = new ForumPost(title, content, (String) request.getSession().getAttribute("username"));
+        logger.info("New forum post titled : " + title);
         forumPostRepository.save(post);
         return "redirect:/forum";
     }
@@ -255,6 +256,7 @@ public class MainController {
             Comment forumComment = new Comment(comment, (String) request.getSession().getAttribute("username"));
             forumComment.setForumPostId(id);
             commentRepository.save(forumComment);
+            logger.info("New forum comment : " + forumComment.getId());
         }
         return "redirect:/forum";
     }
