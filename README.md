@@ -16,10 +16,14 @@ Lukas
 1. Validate the input data provided by the users during registration (e.g., wrong PPS number) and in the forum to avoid XSS.
 2. Apply Content Security policy to avoid XSS.
 - Added anti xss to security policy, still needs fix in jsp
-7. During user registration, force users to choose strong passwords. Ideally you should enforce 2factor authentication.
-- https://www.baeldung.com/spring-security-two-factor-authentication-with-soft-token
 
 Report writing
+
+*In progress*
+
+7. During user registration, force users to choose strong passwords. Ideally you should enforce 2factor authentication.
+ https://www.baeldung.com/spring-security-two-factor-authentication-with-soft-token
+
 
 Kealan 
 

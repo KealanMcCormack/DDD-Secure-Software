@@ -316,7 +316,7 @@ public class MainController {
             } else{
 
                 //PASSWORD VALIDATE HERE
-                if(!(userValidation.isStrong(password))){
+                if(!(userValidation.isPasswordStrong(password))){
                     request.getSession().setAttribute("PasswordWeak", "true");
                     return "redirect:/newUserLogin";
                 }
@@ -397,6 +397,24 @@ public class MainController {
 
         if(timeBetween < 6575){
             request.getSession().setAttribute("failed_registered", false);
+            return "redirect:/account_register";
+        }
+
+        if(!(userValidation.isEmailCorrectFormat(email))){
+            request.getSession().setAttribute("failed_registered", false);
+            return "redirect:/account_register";
+        }
+
+        PPS = PPS.toUpperCase();
+
+        if(!(userValidation.isPPSCorrectFormat(PPS))){
+            request.getSession().setAttribute("failed_registered", false);
+            return "redirect:/account_register";
+        }
+
+        if(!(userValidation.isStringCorrectFormat(name)) || !(userValidation.isStringCorrectFormat(surname))){
+            request.getSession().setAttribute("failed_registered", false);
+            System.out.print("Name failed");
             return "redirect:/account_register";
         }
 
