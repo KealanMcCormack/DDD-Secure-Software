@@ -10,18 +10,26 @@ Repository for Secure Software Engineering COMP47660
 
 **To fix**
 
+Lukas
+
+*To do*
 1. Validate the input data provided by the users during registration (e.g., wrong PPS number) and in the forum to avoid XSS.
 2. Apply Content Security policy to avoid XSS.
- - Added anti xss to security policy, still needs fix in jsp 
+- Added anti xss to security policy, still needs fix in jsp
+7. During user registration, force users to choose strong passwords. Ideally you should enforce 2factor authentication.
+- https://www.baeldung.com/spring-security-two-factor-authentication-with-soft-token
+
+Report writing
+
+Kealan 
+
+*To do*
+
 3. Limit the number of consecutive failed authentication attempts to 3.
 4. If an IP address performs 3 consecutive failed authentication attempts, block it for a given amount of time (e.g., 20 mins).
 5. Implement appropriate access control to only allow the user associated with a specific account to access his/her vaccination information. Also apply access control policies to regulate access to the urls that should only be accessible to healthcare staff.
 6. Support synchronous session management or asynchronous session management using JWT.
- - https://www.toptal.com/spring/spring-security-tutorial
-7. During user registration, force users to choose strong passwords. Ideally you should enforce 2factor authentication.
- - https://www.baeldung.com/spring-security-two-factor-authentication-with-soft-token
-9. Encrypt sensitive information (such as PPS number, phone number, date of birth) when storing this information in the database.
-10. Handle the errors that are shown to the users when a wrong input is provided in order not to expose implementation information related to your applications.
+- https://www.toptal.com/spring/spring-security-tutorial
 
 *In progress*
 7. Fix an adequate session expiration time (15-30 minutes).
@@ -29,12 +37,20 @@ Repository for Secure Software Engineering COMP47660
 12. Perform appropriate logging using the log4j Java framework to record sensitive operations, such as logins, access to/modification of sensitive information (reservations, credit card information).
 - Added logger property file, just need to add logging in controller
 
-
 *Done*
+
 6. Enforce the use of https.
 - Done (Once we don't need client side)
 11. Use BCrypt or a similar slow hashing functionality provided by Spring Security to store the passwords.
 - Done - Added Bcrypt in controller
+
+
+Kate
+
+*To do*
+
+9. Encrypt sensitive information (such as PPS number, phone number, date of birth) when storing this information in the database.
+10. Handle the errors that are shown to the users when a wrong input is provided in order not to expose implementation information related to your applications.
 
 
 **Instructions for Running this Project**
