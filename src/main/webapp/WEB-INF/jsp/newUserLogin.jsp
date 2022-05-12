@@ -29,6 +29,14 @@
                     <%
                         }
                     %>
+
+                            <%
+                        if(!(request.getSession().getAttribute("PasswordWeak")==null) && request.getSession().getAttribute("PasswordWeak").equals("true")){
+                    %>
+                    <p>Given password wasn't strong<p>
+                        <%
+                        }
+                    %>
                 </h2>
             </caption>
             <tr>
@@ -41,9 +49,7 @@
             <tr>
                 <th>Password: </th>
                 <td>
-                    <input type="password" name="password" size="45" required autocomplete="new-password"
-                           passwordrules="required: upper; required: lower; required: digit;
-                     minlength: 25; allowed: [-().&@?'#,/&quot;+]; max-consecutive: 2"/>
+                    <input type="password" name="password" size="45" required autocomplete="new-password" minlength="8">
                 </td>
             </tr>
             <tr>
@@ -61,6 +67,26 @@
                 }
             %>
         </table>
+
+        <p style="text-align: center">
+            Password must:
+        </p>
+
+        <p style="text-align: center">
+            Be at least 8 characters long
+        </p>
+
+        <p style="text-align: center">
+            Contain at least 1 upper case letter
+        </p>
+
+        <p style="text-align: center">
+            Contain at least 1 special character
+        </p>
+
+        <p style="text-align: center">
+            Contain at least 1 number
+        </p>
     </form>
 </div>
 </body>

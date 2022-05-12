@@ -2,6 +2,7 @@ package com.example.controller;
 
 import com.example.model.*;
 import com.example.repository.*;
+import com.example.security.UserValidation;
 import lombok.Data;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -40,6 +41,9 @@ public class MainController {
 
     @Autowired
     CommentRepository commentRepository;
+
+    @Autowired
+    private UserValidation userValidation;
 
     boolean initBookingPage = true;
 
@@ -310,6 +314,13 @@ public class MainController {
                 request.getSession().setAttribute("UsernameTaken", "true");
                 return "redirect:/newUserLogin";
             } else{
+
+                //PASSWORD VALIDATE HERE
+                if(!(userValidation.isStrong(password))){
+                    request.getSession().setAttribute("PasswordWeak", "true");
+                    return "redirect:/newUserLogin";
+                }
+
                 Login login = new Login();
                 login.setUsername(username);
                 login.setPassword(passwordEncoder.encode(password));
