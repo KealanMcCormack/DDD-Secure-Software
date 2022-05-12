@@ -63,24 +63,7 @@ Username - mainAdmin Password - superSecurePassword123
 
 Once logged in as the admin you can create new admin or HSE accounts. 
 Once a HSE account is created you can logout and log back in as the new HSE user. 
-This allows you to access the forum with the ability to make comments. You can also view user data and update vaccination info. 
-
-
-
-Pages
-  - Homepage - Lukasz
-  - Registration - Lukasz
-  - Sub page for account registration(Username+Password) - Kealan
-  - Login (Should this be for all or separate admin login) - Kealan
-    - Decide what flags admin
-  - Vaccine booking - Gerard
-    - Scripts for filling tables, new vaccine table
-  - Record of last activity / Current appointment - Lukasz
-    - Same page, if current appointment need to be able to cancel
-  - Stats page - Kealan
-    - Ours
-  - Forum - Kealan
-  - HSE User update - Gerard
+This allows you to access the forum with the ability to make comments. You can also view user data and update vaccination info.
 
 
 
