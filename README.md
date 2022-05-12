@@ -44,14 +44,17 @@ Kealan
 - Done (Once we don't need client side)
 11. Use BCrypt or a similar slow hashing functionality provided by Spring Security to store the passwords.
 - Done - Added Bcrypt in controller
+- 
 
 
-Kate
+Gerard - Kate
 
 *To do*
 
-9. Encrypt sensitive information (such as PPS number, phone number, date of birth) when storing this information in the database.
 10. Handle the errors that are shown to the users when a wrong input is provided in order not to expose implementation information related to your applications.
+
+*Done*
+9. Encrypt sensitive information (such as PPS number, phone number, date of birth) when storing this information in the database.
 
 General testing /  Fixes to vaccines
 

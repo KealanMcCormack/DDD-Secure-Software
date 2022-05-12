@@ -459,6 +459,7 @@ public class MainController {
         if(usersRepository.findAll().isEmpty()){
             createData();
         }
+
         return "homepage";
     }
 

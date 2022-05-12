@@ -1,5 +1,9 @@
 package com.example.model;
 
+import com.example.security.AttributeEncrypter;
+import org.hibernate.annotations.ColumnTransformer;
+
+import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -8,24 +12,40 @@ import javax.validation.constraints.NotBlank;
 @Entity
 @Table(name = "users")
 public class User {
+
     @NotBlank
+    @Convert(converter = AttributeEncrypter.class)
     private String email;
+
     @NotBlank
+    @Convert(converter = AttributeEncrypter.class)
     private String name;
+
     @NotBlank
+    @Convert(converter = AttributeEncrypter.class)
     private String surname;
+
     @NotBlank
+    @Convert(converter = AttributeEncrypter.class)
     private String dateOfBirth;
+
     @Id
+    @Convert(converter = AttributeEncrypter.class)
     private String PPS;
+
     @NotBlank
+    @Convert(converter = AttributeEncrypter.class)
     private String address;
 
+    //@Convert(converter = AttributeEncrypter.class)
     private int phoneNumber;
+
     @NotBlank
+    @Convert(converter = AttributeEncrypter.class)
     private String nationality;
 
     @NotBlank
+    @Convert(converter = AttributeEncrypter.class)
     private String gender;
 
     public String getVaccineType() {
@@ -37,6 +57,7 @@ public class User {
     }
 
     @NotBlank
+    @Convert(converter = AttributeEncrypter.class)
     private String vaccineType = "pfizer";
 
     private int vaccinationStage = 0;
