@@ -37,8 +37,8 @@ public class User {
     @Convert(converter = AttributeEncrypter.class)
     private String address;
 
-    //@Convert(converter = AttributeEncrypter.class)
-    private int phoneNumber;
+    @Convert(converter = AttributeEncrypter.class)
+    private String phoneNumber;
 
     @NotBlank
     @Convert(converter = AttributeEncrypter.class)
@@ -65,7 +65,7 @@ public class User {
     public User(){
         super();
     }
-    public User(String email, @NotBlank String name, @NotBlank String surname, @NotBlank String dateOfBirth, @NotBlank String PPS, @NotBlank String address, int phoneNumber, @NotBlank String nationality, @NotBlank String gender) {
+    public User(String email, @NotBlank String name, @NotBlank String surname, @NotBlank String dateOfBirth, @NotBlank String PPS, @NotBlank String address, String phoneNumber, @NotBlank String nationality, @NotBlank String gender) {
         this.email = email;
         this.name = name;
         this.surname = surname;
@@ -85,7 +85,7 @@ public class User {
         this.dateOfBirth = "1999-01-20";
         this.PPS = PPS;
         this.address = "Whatever, whatever street";
-        this.phoneNumber = 011321234;
+        this.phoneNumber = "011321234";
         this.nationality = nationality;
         this.gender = gender;
         this.vaccinationStage = vaccinationStage;
@@ -141,11 +141,11 @@ public class User {
         this.address = address;
     }
 
-    public int getPhoneNumber() {
+    public String getPhoneNumber() {
         return phoneNumber;
     }
 
-    public void setPhoneNumber(int phoneNumber) {
+    public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
 

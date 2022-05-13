@@ -463,6 +463,11 @@ public class MainController {
         return "homepage";
     }
 
+    @GetMapping("/error")
+    public String viewErrorPage(){
+        return "errorPage";
+    }
+
     public void createData(){
         String[] nation = new String[]{"Irish", "American", "Italian", "Polish"};
         String[] gender = new String[]{"M", "F", "O"};
