@@ -1,19 +1,55 @@
 package com.example.security;
 
-import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 @Component
 public class UserValidation {
 
+    public boolean isDateCorrectFormat(long timeBetween){
+
+        if(timeBetween < 6575) {
+            return false;
+        }
+
+        return true;
+    }
+
+    public boolean isAddressCorrectFormat(String address){
+        final String ADDRESS_PATTERN = "^[a-zA-Z0-9 ',/-]{10,100}$";
+        Pattern pattern = Pattern.compile(ADDRESS_PATTERN);
+
+        Matcher mather = pattern.matcher(address);
+        return mather.matches();
+    }
+
+    public boolean isPhoneNumberCorrectFormat(String phoneNumber){
+        final String PHONE_PATTERN = "^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[\\s0-9]*$";
+        Pattern pattern = Pattern.compile(PHONE_PATTERN);
+
+        Matcher mather = pattern.matcher(phoneNumber);
+
+        if(phoneNumber.length() > 20){
+            return false;
+        }
+
+        return mather.matches();
+    }
+
     public boolean isStringCorrectFormat(String nameString){
-        final String NAME_STRING_PATTERN = "/^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð '-]+$/u";
+        final String NAME_STRING_PATTERN = "^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð '-]+$";
         Pattern pattern = Pattern.compile(NAME_STRING_PATTERN);
 
-        Matcher mather = pattern.matcher(NAME_STRING_PATTERN);
+        Matcher mather = pattern.matcher(nameString);
+
+        if(nameString.length() > 50){
+            return false;
+        }
+
         return mather.matches();
     }
 
@@ -39,11 +75,5 @@ public class UserValidation {
 
         Matcher matcher = pattern.matcher(password);
         return matcher.matches();
-
-// (?=.*[a-z])   The string must contain at least 1 lowercase alphabetical character
-// (?=.*[A-Z])	The string must contain at least 1 uppercase alphabetical character
-// (?=.*[0-9])	The string must contain at least 1 numeric character
-// (?=.*[!@#$%^&*])	The string must contain at least one special character, but we are escaping reserved RegEx characters to avoid conflict
-// (?=.{8,})	The string must be eight characters or longer
     }
 }

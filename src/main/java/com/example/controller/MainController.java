@@ -383,7 +383,7 @@ public class MainController {
     }
 
     @PostMapping("/userData")
-    public String createUser(@RequestParam String name, @RequestParam String surname, @RequestParam String email, @RequestParam String PPS, @RequestParam String dateOfBirth, @RequestParam String address, @RequestParam int phoneNumber, @RequestParam String nationality, @RequestParam String gender, HttpServletRequest request){
+    public String createUser(@RequestParam String name, @RequestParam String surname, @RequestParam String email, @RequestParam String PPS, @RequestParam String dateOfBirth, @RequestParam String address, @RequestParam String phoneNumber, @RequestParam String nationality, @RequestParam String gender, HttpServletRequest request){
         if(usersRepository.existsById(PPS)){
             request.getSession().setAttribute("already_registered", true);
             return "redirect:/account_register";
@@ -395,13 +395,15 @@ public class MainController {
 
         long timeBetween = ChronoUnit.DAYS.between(birthday, currentDate);
 
-        if(timeBetween < 6575){
+        if(!(userValidation.isDateCorrectFormat(timeBetween))){
             request.getSession().setAttribute("failed_registered", false);
+            System.out.print("Date failed");
             return "redirect:/account_register";
         }
 
         if(!(userValidation.isEmailCorrectFormat(email))){
             request.getSession().setAttribute("failed_registered", false);
+            System.out.print("Email failed");
             return "redirect:/account_register";
         }
 
@@ -409,12 +411,25 @@ public class MainController {
 
         if(!(userValidation.isPPSCorrectFormat(PPS))){
             request.getSession().setAttribute("failed_registered", false);
+            System.out.print("PPS failed");
             return "redirect:/account_register";
         }
 
         if(!(userValidation.isStringCorrectFormat(name)) || !(userValidation.isStringCorrectFormat(surname))){
             request.getSession().setAttribute("failed_registered", false);
             System.out.print("Name failed");
+            return "redirect:/account_register";
+        }
+
+        if(!(userValidation.isPhoneNumberCorrectFormat(phoneNumber))){
+            request.getSession().setAttribute("failed_registered", false);
+            System.out.print("Phone failed");
+            return "redirect:/account_register";
+        }
+
+        if(!(userValidation.isAddressCorrectFormat(address))){
+            request.getSession().setAttribute("failed_registered", false);
+            System.out.print("Address failed");
             return "redirect:/account_register";
         }
 
