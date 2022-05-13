@@ -22,6 +22,7 @@ import java.util.Objects;
 
 @Controller
 public class MainController {
+
     private final Logger logger = LogManager.getLogger(MainController.class);
     BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
     @Autowired
@@ -196,7 +197,6 @@ public class MainController {
 
         for(VaccineAppointment apt : repoList){
             if(Objects.equals(apt.username, username)) {
-                System.out.println("in if");
                 vaccineAppointments.add(apt);
             }
         }
@@ -210,6 +210,7 @@ public class MainController {
     @PostMapping("/activityDelete/{id}")
     public String activityDelete(@PathVariable("id") String id){
         int aptId = Integer.parseInt(id);
+        logger.info("Deleting appointment with id " + id);
         vaccineAppointmentRepository.deleteById(aptId);
 
         return "redirect:/activity";
@@ -287,6 +288,8 @@ public class MainController {
         LocalDate secondVaccDate = LocalDate.of(Integer.parseInt(dateArr[2]), Integer.parseInt(dateArr[1]), Integer.parseInt(dateArr[0]));
         String secondVaccDateString = secondVaccDate.plusDays(21L).toString();
 
+        logger.info("Replacing appointment: " + oldApt.toString() + " with: " + newApt.toString());
+
         vaccineAppointmentRepository.deleteById(appointmentID);
         vaccineAppointmentRepository.save(newApt);
 
@@ -329,6 +332,9 @@ public class MainController {
 
                 login.setPPS(PPS);
                 loginRepository.save(login);
+
+                logger.info("Adding following login to database: " + login.toString());
+
                 request.getSession().setAttribute("login", "true");
                 request.getSession().setAttribute("username", username);
                 request.getSession().setAttribute("NewlyRegistered", "false");
@@ -446,6 +452,8 @@ public class MainController {
         user.setVaccinationStage(0);
         request.getSession().setAttribute("PPS", PPS);
         request.getSession().setAttribute("NewlyRegistered", "true");
+
+        logger.info("Saving user to db: " + user.getEmail());
         usersRepository.save(user);
 
         return "redirect:/newUserLogin";
@@ -463,6 +471,8 @@ public class MainController {
         admin.setUsername(username);
         admin.setPassword(passwordEncoder.encode(password));
         admin.setPrivilege(privilege);
+
+        logger.info("Saving admin to db: " + admin.getEmail());
         adminRepository.save(admin);
 
         return "redirect:/admin_homepage";
@@ -491,6 +501,7 @@ public class MainController {
             usersRepository.save(newBoi);
         }
 
+        logger.info("Creating initial data");
         forumPostRepository.save(new ForumPost("How do I vaccine", "How do i get vaccine fast", "Someguy_2"));
         forumPostRepository.save(new ForumPost("Best vaccine?", "Which is the best vaccine to get", "UserGuy"));
         forumPostRepository.save(new ForumPost("Where can I complain", "This site looks like something the government would make, straight out of the 1980s", "FunVccineTia"));

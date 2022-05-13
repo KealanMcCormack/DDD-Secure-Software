@@ -52,16 +52,17 @@ Gerard - Kate
 
 *To do*
 
-10. Handle the errors that are shown to the users when a wrong input is provided in order not to expose implementation information related to your applications.
+12. Perform appropriate logging using the log4j Java framework to record sensitive operations, such as logins, access to/modification of sensitive information (reservations, credit card information).
+- Added logger property file, just need to add logging in controller
 
 *Done*
+10. Handle the errors that are shown to the users when a wrong input is provided in order not to expose implementation information related to your applications.
 9. Encrypt sensitive information (such as PPS number, phone number, date of birth) when storing this information in the database.
 
 General testing /  Fixes to vaccines
 
 *In progess*
-12. Perform appropriate logging using the log4j Java framework to record sensitive operations, such as logins, access to/modification of sensitive information (reservations, credit card information).
-- Added logger property file, just need to add logging in controller
+
 7. Fix an adequate session expiration time (15-30 minutes).
 - Added session timeout to properties, may need more than this
 
