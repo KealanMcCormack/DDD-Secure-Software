@@ -336,7 +336,13 @@ public class MainController {
                 return "redirect:/newUserLogin";
             } else{
 
-                //PASSWORD VALIDATE HERE
+                //PASSWORD + USERNAME VALIDATE
+
+                if(!(userValidation.isUserNameCorrectFormat(username))){
+                    request.getSession().setAttribute("usernameIncorrect", "true");
+                    return "redirect:/newUserLogin";
+                }
+
                 if(!(userValidation.isPasswordStrong(password))){
                     request.getSession().setAttribute("PasswordWeak", "true");
                     return "redirect:/newUserLogin";
@@ -365,6 +371,17 @@ public class MainController {
 
     @PostMapping("/loginCheck")
     public String loginCheck(@RequestParam String username, @RequestParam String password, HttpServletRequest request){
+
+        if(!(userValidation.isUserNameCorrectFormat(username))){
+            request.getSession().setAttribute("login", "true");
+            return "redirect:login.jsp";
+        }
+
+        if(!(userValidation.isPasswordStrong(password))){
+            request.getSession().setAttribute("login", "true");
+            return "redirect:login.jsp";
+        }
+
         if(loginRepository.existsById(username)){
             if(loginRepository.findById(username).get().getPassword().equals(passwordEncoder.encode(password))){
                 request.getSession().setAttribute("login", "true");

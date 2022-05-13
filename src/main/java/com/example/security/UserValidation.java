@@ -70,10 +70,18 @@ public class UserValidation {
     }
 
     public boolean isPasswordStrong(String password){
-        final String PASSWORD_PATTERN = "((?=.*[a-z])(?=.*\\d)(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,32})";
+        final String PASSWORD_PATTERN = "^(?=.*[A-Z].*[A-Z])(?=.*[!@#$&*,./-])(?=.*[0-9].*[0-9])(?=.*[a-z].*[a-z].*[a-z]).{8,32}$";
         Pattern pattern = Pattern.compile(PASSWORD_PATTERN);
 
         Matcher matcher = pattern.matcher(password);
+        return matcher.matches();
+    }
+
+    public boolean isUserNameCorrectFormat(String userName){
+        final String USER_NAME_PATTERN = "^[a-zA-Z0-9àáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð _-]{2,24}+$";
+        Pattern pattern = Pattern.compile(USER_NAME_PATTERN);
+
+        Matcher matcher = pattern.matcher(userName);
         return matcher.matches();
     }
 }

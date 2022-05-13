@@ -30,10 +30,18 @@
                         }
                     %>
 
-                            <%
+                        <%
                         if(!(request.getSession().getAttribute("PasswordWeak")==null) && request.getSession().getAttribute("PasswordWeak").equals("true")){
                     %>
                     <p>Given password wasn't strong<p>
+                        <%
+                        }
+                    %>
+
+                                <%
+                        if(!(request.getSession().getAttribute("usernameIncorrect")==null) && request.getSession().getAttribute("usernameIncorrect").equals("true")){
+                    %>
+                    <p>Username wasn't correct format<p>
                         <%
                         }
                     %>
@@ -77,7 +85,7 @@
         </p>
 
         <p style="text-align: center">
-            Contain at least 1 upper case letter
+            Contain at least 2 upper case letters
         </p>
 
         <p style="text-align: center">
@@ -85,7 +93,7 @@
         </p>
 
         <p style="text-align: center">
-            Contain at least 1 number
+            Contain at least 2 numbers
         </p>
     </form>
 </div>
