@@ -20,7 +20,7 @@ Report writing
 
 *In progress*
 
-7. During user registration, force users to choose strong passwords. Ideally you should enforce 2factor authentication.
+9. During user registration, force users to choose strong passwords. Ideally you should enforce 2factor authentication.
  https://www.baeldung.com/spring-security-two-factor-authentication-with-soft-token
 
 *Done*
@@ -33,7 +33,7 @@ Kealan
 3. Limit the number of consecutive failed authentication attempts to 3.
 4. If an IP address performs 3 consecutive failed authentication attempts, block it for a given amount of time (e.g., 20 mins).
 5. Implement appropriate access control to only allow the user associated with a specific account to access his/her vaccination information. Also apply access control policies to regulate access to the urls that should only be accessible to healthcare staff.
-6. Support synchronous session management or asynchronous session management using JWT.
+7. Support synchronous session management or asynchronous session management using JWT.
 - https://www.toptal.com/spring/spring-security-tutorial
 
 *In progress*
@@ -56,14 +56,14 @@ Gerard - Kate
 - Added logger property file, just need to add logging in controller
 
 *Done*
-10. Handle the errors that are shown to the users when a wrong input is provided in order not to expose implementation information related to your applications.
-9. Encrypt sensitive information (such as PPS number, phone number, date of birth) when storing this information in the database.
+13. Handle the errors that are shown to the users when a wrong input is provided in order not to expose implementation information related to your applications.
+10. Encrypt sensitive information (such as PPS number, phone number, date of birth) when storing this information in the database.
 
 General testing /  Fixes to vaccines
 
 *In progess*
 
-7. Fix an adequate session expiration time (15-30 minutes).
+8. Fix an adequate session expiration time (15-30 minutes).
 - Added session timeout to properties, may need more than this
 
 **Instructions for Running this Project**
