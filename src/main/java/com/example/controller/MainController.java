@@ -2,6 +2,7 @@ package com.example.controller;
 
 import com.example.model.*;
 import com.example.repository.*;
+import com.example.security.ForumValidation;
 import com.example.security.UserValidation;
 import lombok.Data;
 import org.apache.logging.log4j.LogManager;
@@ -44,6 +45,9 @@ public class MainController {
 
     @Autowired
     private UserValidation userValidation;
+
+    @Autowired
+    private ForumValidation forumValidator;
 
     boolean initBookingPage = true;
 
@@ -248,6 +252,13 @@ public class MainController {
 
     @PostMapping("/addForumPost")
     public String addForumPost(HttpServletRequest request, @RequestParam String title, @RequestParam String content){
+        //ADD VALIDATION HERE
+
+        if(!(forumValidator.isForumTitleCorrectFormat(title)) || !(forumValidator.isForumContentCorrectFormat(content))){
+            request.getSession().setAttribute("forum_content_error", true);
+            return "redirect:/forum";
+        }
+
         ForumPost post = new ForumPost(title, content, (String) request.getSession().getAttribute("username"));
         logger.info("New forum post titled : " + title);
         forumPostRepository.save(post);
@@ -257,6 +268,13 @@ public class MainController {
     @PostMapping("/addForumComment/{id}")
     public String addForumComment(@PathVariable Long id, HttpServletRequest request, @RequestParam String comment){
         if(forumPostRepository.findById(id).isPresent()){
+            //ADD VALIDATION HERE
+
+            if(!(forumValidator.isForumContentCorrectFormat(comment))){
+                request.getSession().setAttribute("forum_content_error", true);
+                return "redirect:/forum";
+            }
+
             Comment forumComment = new Comment(comment, (String) request.getSession().getAttribute("username"));
             forumComment.setForumPostId(id);
             commentRepository.save(forumComment);

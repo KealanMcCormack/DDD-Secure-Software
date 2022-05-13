@@ -43,6 +43,15 @@
             }
         %>
 
+        <%
+            if(request.getSession().getAttribute("forum_content_error") != null){
+        %>
+        <p>I'm sorry, the content of the post was not allowed<p>
+        <p>Please Try again</p>
+        <%
+            }
+        %>
+
     </h2>
 </center>
 <table id="lastActivity">

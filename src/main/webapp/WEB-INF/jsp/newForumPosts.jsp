@@ -13,6 +13,8 @@
     </h2>
 </div>
 <div align="center">
+
+
     <form action="/addForumPost" method="post">
         <table border="1" cellpadding="5">
             <caption>
@@ -21,14 +23,14 @@
             <tr>
                 <th>Title: </th>
                     <td>
-                        <input type="text" name="title" size="45" required/>
+                        <input type="text" name="title" size="45" maxlength="40" minlength="5" required/>
                     </td>
                 </tr>
 
                 <tr>
                     <th>Content: </th>
                     <td>
-                        <input type="text" name="content" size="200" required/>
+                        <input type="text" name="content" size="200" required maxlength="256" minlength="10"/>
                     </td>
                 </tr>
                 <tr>

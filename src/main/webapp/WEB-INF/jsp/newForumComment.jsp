@@ -13,6 +13,7 @@
     </h2>
 </div>
 <div align="center">
+
     <form action="/addForumPost" method="post">
         <table border="1" cellpadding="5">
             <caption>
