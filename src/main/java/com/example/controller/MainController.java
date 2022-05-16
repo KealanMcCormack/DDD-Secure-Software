@@ -212,10 +212,12 @@ public class MainController {
     }
 
     @PostMapping("/activityDelete/{id}")
-    public String activityDelete(@PathVariable("id") String id){
+    public String activityDelete(@PathVariable("id") String id, HttpServletRequest servletRequest){
         int aptId = Integer.parseInt(id);
         logger.info("Deleting appointment with id " + id);
         vaccineAppointmentRepository.deleteById(aptId);
+
+        servletRequest.getSession().setAttribute("isBooked", false);
 
         return "redirect:/activity";
     }
@@ -313,7 +315,9 @@ public class MainController {
 
         // Second vacc date
         vaccineAppointmentRepository.save(new VaccineAppointment(oldApt.getCentre(), oldApt.getTime(), secondVaccDateString, "true", username));
-        return "redirect:/booking";
+
+        servletRequest.getSession().setAttribute("isBooked", true);
+        return "redirect:/";
     }
 
     @RequestMapping("/account_register")

@@ -50,7 +50,7 @@
 <div align="center">
 <h2>
     <%
-        if(request.getSession().getAttribute("login") != null && request.getSession().getAttribute("vaccinated") == null){
+        if(request.getSession().getAttribute("login") != null && request.getSession().getAttribute("vaccinated") == null && !((boolean) request.getSession().getAttribute("isBooked"))){
     %>
     <a href="/booking">Book Vaccine</a>
     <%
