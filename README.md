@@ -52,7 +52,8 @@ Gerard - Kate
 
 *To do*
 
-
+- Can currently book out all vaccines slots
+- Date on 2nd vaccination is in wrong format
 
 *Done*
 10. Handle the errors that are shown to the users when a wrong input is provided in order not to expose implementation information related to your applications.
