@@ -52,14 +52,15 @@ Gerard - Kate
 
 *To do*
 
-- Can currently book out all vaccines slots
-- Date on 2nd vaccination is in wrong format
+
 
 *Done*
 10. Encrypt sensitive information (such as PPS number, phone number, date of birth) when storing this information in the database.
 12. Perform appropriate logging using the log4j Java framework to record sensitive operations, such as logins, access to/modification of sensitive information (reservations, credit card information).
 - Added logger property file, just need to add logging in controller
 13. Handle the errors that are shown to the users when a wrong input is provided in order not to expose implementation information related to your applications.
+- Can currently book out all vaccines slots
+- Date on 2nd vaccination is in wrong format
 
 General testing /  Fixes to vaccines
 
