@@ -519,18 +519,15 @@ public class MainController {
 
     // See All Books on Homepage
     @RequestMapping({"/"})
-    public String viewHomePage(){
+    public String viewHomePage(HttpServletRequest request){
         if(usersRepository.findAll().isEmpty()){
             createData();
+            request.getSession().setAttribute("isBooked", false);
         }
 
         return "homepage";
     }
 
-    @GetMapping("/error")
-    public String viewErrorPage(){
-        return "errorPage";
-    }
 
     public void createData(){
         String[] nation = new String[]{"Irish", "American", "Italian", "Polish"};
