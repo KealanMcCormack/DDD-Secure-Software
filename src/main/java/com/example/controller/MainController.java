@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -50,7 +51,9 @@ public class MainController {
     @Autowired
     private ForumValidation forumValidator;
 
-    boolean initBookingPage = true;
+    private boolean initBookingPage = true;
+
+    private boolean initIsBooked = true;
 
     @GetMapping("/viewUserData")
     public String viewUserData(Model model){
@@ -306,7 +309,9 @@ public class MainController {
         VaccineAppointment newApt = new VaccineAppointment(appointmentID, oldApt.getCentre(), oldApt.getTime(), oldApt.getDate(), "true", username);
         String[] dateArr = oldApt.getDate().split("-");
         LocalDate secondVaccDate = LocalDate.of(Integer.parseInt(dateArr[2]), Integer.parseInt(dateArr[1]), Integer.parseInt(dateArr[0]));
-        String secondVaccDateString = secondVaccDate.plusDays(21L).toString();
+
+        DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        String secondVaccDateString = secondVaccDate.plusDays(21L).format(DATE_FORMATTER).toString();
 
         logger.info("Replacing appointment: " + oldApt.toString() + " with: " + newApt.toString());
 
@@ -522,7 +527,11 @@ public class MainController {
     public String viewHomePage(HttpServletRequest request){
         if(usersRepository.findAll().isEmpty()){
             createData();
+        }
+
+        if(initIsBooked){
             request.getSession().setAttribute("isBooked", false);
+            initIsBooked = false;
         }
 
         return "homepage";
