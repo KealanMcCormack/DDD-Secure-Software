@@ -29,9 +29,9 @@ public class SecSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(final HttpSecurity http) throws Exception {
         http
                 .headers()
-                .xssProtection()
-                .and()
-                .contentSecurityPolicy("script-src 'self'");
+                .xssProtection();
+                //.and()
+                //.contentSecurityPolicy("script-src 'self' 'unsafe-inline'");
 
         http
                 .requiresChannel(channel ->
@@ -39,7 +39,7 @@ public class SecSecurityConfig extends WebSecurityConfigurerAdapter {
 
         http
                 .authorizeRequests()
-                .antMatchers("/**").permitAll()
+                .antMatchers("/").permitAll()
                 .and()
                 .formLogin()
                 .loginPage("/")
