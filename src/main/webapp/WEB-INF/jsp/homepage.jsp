@@ -9,7 +9,7 @@
 <body>
 <center>
     <h1 style="border-bottom: 5px solid lightgreen;">Welcome to the HSE Vaccine Website</h1>
-    <% if(request.getSession().getAttribute("username") != null){
+    <% if(request.getSession().request.getSession().getAttribute("username") != null){
         String username = request.getSession().getAttribute("username").toString();
     %>
     <p>Welcome Back - <%=username%> - </p>

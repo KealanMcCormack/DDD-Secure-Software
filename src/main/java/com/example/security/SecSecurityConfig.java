@@ -33,11 +33,9 @@ public class SecSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private UserDetailsService userDetailsService;
 
-    private BCryptPasswordEncoder passwordEncoder;
-
     @Override
     protected void configure(final AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder);
+        auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
     }
 
     @Override
@@ -63,12 +61,14 @@ public class SecSecurityConfig extends WebSecurityConfigurerAdapter {
                         "/newForumComment", "/bookRequest/**", "/newUserLogin", "/addLoginDetails", "/createNewHSEUser").permitAll().anyRequest().authenticated()
                 .and()
                 .formLogin()
-                .loginPage("/")
+                .loginPage("/login")
+                .permitAll()
                 //.failureUrl("/login.html?error=true")
                 .and()
                 .logout()
-                .logoutUrl("/perform_logout")
+                .logoutUrl("/logout")
                 .deleteCookies(COOKIE_NAME)
+                .invalidateHttpSession(true)
                 .deleteCookies("JSESSIONID")
                 .and()
                 .addFilter(new JWTAuthenticationFilter(authenticationManager()))
