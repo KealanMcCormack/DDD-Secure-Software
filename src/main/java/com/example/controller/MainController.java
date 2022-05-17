@@ -397,7 +397,7 @@ public class MainController {
             if(ip.getTimeOut() > 0){
                 if(validateTimeOut(ip)){
                     ModelMap map = new ModelMap();
-                    return viewErrorPageWithMessage("Too many login attempts, please try again later", map);
+                    //return viewErrorPageWithMessage("Too many login attempts, please try again later", map);
                 }
             }
         }
@@ -406,7 +406,7 @@ public class MainController {
         if(!loginRepository.existsById(username)){
             loginFailIterIp(request.getRemoteAddr());
             request.getSession().setAttribute("login", "false");
-            return "redirect:login.jsp";
+            return "redirect:/login";
         }
 
         Login login = loginRepository.getById(username);
@@ -414,20 +414,15 @@ public class MainController {
         //Check too many logins haven't been attempted
         if(login.getFailedLoginAttempts() > 2){
             ModelMap map = new ModelMap();
-            return viewErrorPageWithMessage("Too many failed login attempts, this account has been locked. Please contact a site administrator", map);
+            //return viewErrorPageWithMessage("Too many failed login attempts, this account has been locked. Please contact a site administrator", map);
         }
 
         if(!(userValidation.isUserNameCorrectFormat(username))){
             request.getSession().setAttribute("login", "false");
-            return "redirect:login.jsp";
+            return "redirect:/login";
         }
 
-        if(!(userValidation.isPasswordStrong(password))){
-            request.getSession().setAttribute("login", "false");
-            return "redirect:login.jsp";
-        }
-
-        if(loginRepository.findById(username).get().getPassword().equals(passwordEncoder.encode(password))){
+        if(passwordEncoder.matches(password, loginRepository.findById(username).get().getPassword())){
             request.getSession().setAttribute("login", "true");
             request.getSession().setAttribute("username", username);
             String PPS = loginRepository.findById(username).get().getPPS();
@@ -450,14 +445,14 @@ public class MainController {
         if(ipRepository.existsById(ip)){
             IPs requestorIP = ipRepository.getById(ip);
             requestorIP.iterateConnectionAttempts();
+            if(requestorIP.getConnectionAttempts() > 2){
+                requestorIP.setTimeOut(System.currentTimeMillis());
+            }
             ipRepository.save(requestorIP);
         } else{
             IPs ips = new IPs();
             ips.setIp(ip);
             ips.iterateConnectionAttempts();
-            if(ips.getConnectionAttempts() > 2){
-                ips.setTimeOut(System.currentTimeMillis());
-            }
             ipRepository.save(ips);
         }
     }
@@ -610,7 +605,6 @@ public class MainController {
         return "redirect:/admin_homepage";
     }
 
-    // See All Books on Homepage
     @RequestMapping({"/"})
     public String viewHomePage(HttpServletRequest request){
         if(usersRepository.findAll().isEmpty()){
