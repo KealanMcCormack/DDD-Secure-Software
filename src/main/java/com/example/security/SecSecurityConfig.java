@@ -54,8 +54,6 @@ public class SecSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/", "/stats", "/login", "/loginCheck", "/admin_login",
                         "/logout", "/forum", "/account_register", "/newUserLogin", "/addLoginDetails", "/userData").permitAll()
-                .and()
-                .authorizeRequests()
                 .antMatchers("/viewUserData", "/viewUserDataChangeVacc/**", "/vaccine_register", "/registerNewUser",
                         "/admin_homepage", "/activity/**", "/booking", "/addForumPost", "/addForumComment/**", "/newForumPost",
                         "/newForumComment", "/bookRequest/**", "/newUserLogin", "/addLoginDetails", "/createNewHSEUser").permitAll().anyRequest().authenticated()

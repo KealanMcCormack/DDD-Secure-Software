@@ -9,7 +9,7 @@
 <body>
 <center>
     <h1 style="border-bottom: 5px solid lightgreen;">Welcome to the HSE Vaccine Website</h1>
-    <% if(request.getSession().request.getSession().getAttribute("username") != null){
+    <% if(request.getSession().getAttribute("username") != null){
         String username = request.getSession().getAttribute("username").toString();
     %>
     <p>Welcome Back - <%=username%> - </p>
@@ -51,7 +51,7 @@
 <div align="center">
 <h2>
     <%
-        if(request.getSession().getAttribute("login") != null && Objects.equals(request.getSession().getAttribute("login").toString(), "true") && request.getSession().getAttribute("vaccinated") == null && !((boolean) request.getSession().getAttribute("isBooked"))){
+        if(request.getSession().getAttribute("login") != null && Objects.equals(request.getSession().getAttribute("login").toString(), "true") && request.getSession().getAttribute("vaccinated") == null && (request.getSession().getAttribute("isBooked") == null)){
     %>
     <a href="/booking">Book Vaccine</a>
     <%
