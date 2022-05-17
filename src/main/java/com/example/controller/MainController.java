@@ -395,7 +395,7 @@ public class MainController {
             if(ip.getTimeOut() > 0){
                 if(validateTimeOut(ip)){
                     ModelMap map = new ModelMap();
-                    //return viewErrorPageWithMessage("Too many login attempts, please try again later", map);
+                    return viewErrorPageWithMessage("Too many login attempts, please try again later", map);
                 }
             }
         }
@@ -412,7 +412,7 @@ public class MainController {
         //Check too many logins haven't been attempted
         if(login.getFailedLoginAttempts() > 2){
             ModelMap map = new ModelMap();
-            //return viewErrorPageWithMessage("Too many failed login attempts, this account has been locked. Please contact a site administrator", map);
+            return viewErrorPageWithMessage("Too many failed login attempts, this account has been locked. Please contact a site administrator", map);
         }
 
         if(!(userValidation.isUserNameCorrectFormat(username))){
@@ -472,7 +472,7 @@ public class MainController {
             if(ip.getTimeOut() > 0){
                 if(validateTimeOut(ip)){
                     ModelMap map = new ModelMap();
-                    //return viewErrorPageWithMessage("Too many login attempts, please try again later", map);
+                    return viewErrorPageWithMessage("Too many login attempts, please try again later", map);
                 }
             }
         }
@@ -488,7 +488,7 @@ public class MainController {
         //Check too many logins haven't been attempted
         if(login.getFailedLoginAttempts() > 2){
             ModelMap map = new ModelMap();
-            //return viewErrorPageWithMessage("Too many failed login attempts, this account has been locked. Please contact a site administrator", map);
+            return viewErrorPageWithMessage("Too many failed login attempts, this account has been locked. Please contact a site administrator", map);
         }
 
         if(passwordEncoder.matches(password, adminRepository.findById(username).get().getPassword())){
