@@ -428,9 +428,7 @@ public class MainController {
             return "redirect:/login";
         }
 
-        String passEncoded = passwordEncoder.encode(password).toString();
-
-        if(loginRepository.findById(username).get().getPassword().equals(passEncoded)){
+        if(passwordEncoder.matches(password, loginRepository.findById(username).get().getPassword())){
             request.getSession().setAttribute("login", "true");
             request.getSession().setAttribute("username", username);
             String PPS = loginRepository.findById(username).get().getPPS();
