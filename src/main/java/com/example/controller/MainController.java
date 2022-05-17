@@ -363,7 +363,7 @@ public class MainController {
 
                 Login login = new Login();
                 login.setUsername(username);
-                login.setPassword(passwordEncoder.encode(password).toString());
+                login.setPassword(passwordEncoder.encode(password));
 
                 String PPS = (String) request.getSession().getAttribute("PPS");
 
@@ -382,12 +382,11 @@ public class MainController {
 
     }
 
-    @RequestMapping("/errorPage")
-    public String viewErrorPageWithMessage(String message, ModelMap map){
+    public String viewErrorPageWithMessage(String message, ModelMap model){
         if(message != null){
-            map.addAttribute("message", message);
+            model.addAttribute("message", error_message);
         }
-        return "error";
+        return "custom_error";
     }
 
     @PostMapping("/loginCheck")
@@ -398,7 +397,7 @@ public class MainController {
             if(ip.getTimeOut() > 0){
                 if(validateTimeOut(ip)){
                     ModelMap map = new ModelMap();
-                    //return viewErrorPageWithMessage("Too many login attempts, please try again later", map);
+                    return viewErrorPageWithMessage("Too many login attempts, please try again later", map);
                 }
             }
         }
@@ -407,7 +406,7 @@ public class MainController {
         if(!loginRepository.existsById(username)){
             loginFailIterIp(request.getRemoteAddr());
             request.getSession().setAttribute("login", "false");
-            return "redirect:/login";
+            return "redirect:login.jsp";
         }
 
         Login login = loginRepository.getById(username);
@@ -415,15 +414,20 @@ public class MainController {
         //Check too many logins haven't been attempted
         if(login.getFailedLoginAttempts() > 2){
             ModelMap map = new ModelMap();
-            //return viewErrorPageWithMessage("Too many failed login attempts, this account has been locked. Please contact a site administrator", map);
+            return viewErrorPageWithMessage("Too many failed login attempts, this account has been locked. Please contact a site administrator", map);
         }
 
         if(!(userValidation.isUserNameCorrectFormat(username))){
             request.getSession().setAttribute("login", "false");
-            return "redirect:/login";
+            return "redirect:login.jsp";
         }
 
-        if(passwordEncoder.matches(password, loginRepository.findById(username).get().getPassword())){
+        if(!(userValidation.isPasswordStrong(password))){
+            request.getSession().setAttribute("login", "false");
+            return "redirect:login.jsp";
+        }
+
+        if(loginRepository.findById(username).get().getPassword().equals(passwordEncoder.encode(password))){
             request.getSession().setAttribute("login", "true");
             request.getSession().setAttribute("username", username);
             String PPS = loginRepository.findById(username).get().getPPS();
@@ -446,9 +450,6 @@ public class MainController {
         if(ipRepository.existsById(ip)){
             IPs requestorIP = ipRepository.getById(ip);
             requestorIP.iterateConnectionAttempts();
-            if(requestorIP.getConnectionAttempts() > 2 && requestorIP.getTimeOut() > 0){
-                requestorIP.setTimeOut(System.currentTimeMillis());
-            }
             ipRepository.save(requestorIP);
         } else{
             IPs ips = new IPs();

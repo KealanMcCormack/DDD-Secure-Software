@@ -1,5 +1,6 @@
 package com.example.model;
 
+import com.example.security.AttributeEncrypter;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -28,6 +29,7 @@ public class VaccineAppointment {
     public String isBooked;
 
     //TODO: Make this a foreign key to a user
+    @Convert(converter = AttributeEncrypter.class)
     public String username;
 
     public VaccineAppointment(int id, String centre, String time, String date, String isBooked, String username) {

@@ -6,6 +6,7 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Last Activity</title>
 </head>
@@ -18,11 +19,11 @@
         <% if(request.getSession().getAttribute("username") != null){
             String username = request.getSession().getAttribute("username").toString();
         %>
-        <p>View Last Activity for - <%=username%> - </p><br>
-        <p>
-            <c:out value="Vaccination Stage = ${vaccinationStage}"/><br>
-            <c:out value="Vaccine Type = ${vaccineType}"/>
-        </p>
+            <p>View Last Activity for - <%=username%> - </p><br>
+            <p>
+                <c:out value="Vaccination Stage = ${vaccinationStage}"/><br>
+                <c:out value="Vaccine Type = ${vaccineType}"/>
+            </p>
         <% } %>
 
     </h1>

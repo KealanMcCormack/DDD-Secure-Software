@@ -2,11 +2,15 @@ package com.example.model;
 
 import lombok.Data;
 
+import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+
+import com.example.security.AttributeEncrypter;
+import org.hibernate.annotations.ColumnTransformer;
 
 @Data
 @Entity
@@ -14,9 +18,13 @@ import javax.validation.constraints.NotNull;
 public class Admin {
 
     @NotBlank
+    @Convert(converter = AttributeEncrypter.class)
     private String email;
+
     @Id
+    @Convert(converter = AttributeEncrypter.class)
     private String username;
+
     @NotNull
     private String password;
 
@@ -33,6 +41,7 @@ public class Admin {
     }
 
     @NotNull
+    @Convert(converter = AttributeEncrypter.class)
     private String privilege;
 
     public void iterateFailedLogin(){
