@@ -423,11 +423,6 @@ public class MainController {
             return "redirect:/login";
         }
 
-        if(!(userValidation.isPasswordStrong(password))){
-            request.getSession().setAttribute("login", "false");
-            return "redirect:/login";
-        }
-
         if(passwordEncoder.matches(password, loginRepository.findById(username).get().getPassword())){
             request.getSession().setAttribute("login", "true");
             request.getSession().setAttribute("username", username);
@@ -478,24 +473,48 @@ public class MainController {
 
     @PostMapping("/adminLoginCheck")
     public String adminLoginCheck(@RequestParam String username, @RequestParam String password, HttpServletRequest request){
-
-        if(adminRepository.existsById(username)){
-            if(adminRepository.findById(username).get().getPassword().equals(passwordEncoder.encode(password))){
-                request.getSession().setAttribute("admin_login", "true");
-                request.getSession().setAttribute("username", username);
-
-                if(adminRepository.findById(username).get().getPrivilege().equals("HSE")){
-                    request.getSession().setAttribute("privilege", "HSE");
+        if(ipRepository.existsById(request.getRemoteAddr())){
+            IPs ip = ipRepository.findById(request.getRemoteAddr()).get();
+            if(ip.getTimeOut() > 0){
+                if(validateTimeOut(ip)){
+                    ModelMap map = new ModelMap();
+                    //return viewErrorPageWithMessage("Too many login attempts, please try again later", map);
                 }
-
-                if(adminRepository.findById(username).get().getPrivilege().equals("Admin")){
-                    request.getSession().setAttribute("privilege", "Admin");
-                }
-
-                return "redirect:/admin_homepage";
             }
         }
 
+        if(!adminRepository.existsById(username)){
+            loginFailIterIp(request.getRemoteAddr());
+            request.getSession().setAttribute("admin_login", "false");
+            return "redirect:/admin_login";
+        }
+
+        Admin login = adminRepository.getById(username);
+
+        //Check too many logins haven't been attempted
+        if(login.getFailedLoginAttempts() > 2){
+            ModelMap map = new ModelMap();
+            //return viewErrorPageWithMessage("Too many failed login attempts, this account has been locked. Please contact a site administrator", map);
+        }
+
+        if(passwordEncoder.matches(password, adminRepository.findById(username).get().getPassword())){
+            request.getSession().setAttribute("admin_login", "true");
+            request.getSession().setAttribute("username", username);
+
+            if(adminRepository.findById(username).get().getPrivilege().equals("HSE")){
+                request.getSession().setAttribute("privilege", "HSE");
+            }
+
+            if(adminRepository.findById(username).get().getPrivilege().equals("Admin")){
+                request.getSession().setAttribute("privilege", "Admin");
+            }
+
+            return "redirect:/admin_homepage";
+        }
+
+        login.iterateFailedLogin();
+        loginFailIterIp(request.getRemoteAddr());
+        adminRepository.save(login);
         request.getSession().setAttribute("admin_login", "false");
         return "redirect:/admin_login";
     }

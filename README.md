@@ -36,14 +36,14 @@ Kealan
 
 *In progress*
 
-3. Limit the number of consecutive failed authentication attempts to 3.
- - Either use ifs or listener
-4. If an IP address performs 3 consecutive failed authentication attempts, block it for a given amount of time (e.g., 20 mins).
- - Add login attempt service / db. Use a thread for the 20 minute thing
 
 
 *Done*
 
+3. Limit the number of consecutive failed authentication attempts to 3.
+- Either use ifs or listener
+4. If an IP address performs 3 consecutive failed authentication attempts, block it for a given amount of time (e.g., 20 mins).
+- Add login attempt service / db.
 6. Enforce the use of https.
 - Done (Once we don't need client side)
 11. Use BCrypt or a similar slow hashing functionality provided by Spring Security to store the passwords.

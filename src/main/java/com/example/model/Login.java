@@ -32,6 +32,4 @@ public class Login {
     public void iterateFailedLogin(){
         failedLoginAttempts++;
     }
-
-
 }

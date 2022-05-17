@@ -34,4 +34,8 @@ public class Admin {
 
     @NotNull
     private String privilege;
+
+    public void iterateFailedLogin(){
+        failedLoginAttempts++;
+    }
 }
