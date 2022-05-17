@@ -1,5 +1,7 @@
 package com.example.security;
 
+import com.example.filter.JWTAuthenticationFilter;
+import com.example.filter.JWTAuthorizationFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -15,6 +17,8 @@ import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import java.util.Arrays;
+
+import static com.example.filter.SecurityConstants.COOKIE_NAME;
 
 @Configuration
 @EnableWebSecurity
@@ -39,7 +43,13 @@ public class SecSecurityConfig extends WebSecurityConfigurerAdapter {
 
         http
                 .authorizeRequests()
-                .antMatchers("/").permitAll()
+                .antMatchers("/", "/stats", "/login", "/loginCheck", "/admin_login",
+                        "/logout", "/forum", "/account_register", "/newUserLogin", "/addLoginDetails", "/userData").permitAll()
+                .and()
+                .authorizeRequests()
+                .antMatchers("/viewUserData", "/viewUserDataChangeVacc/**", "/vaccine_register", "/registerNewUser",
+                        "/admin_homepage", "/activity/**", "/booking", "/addForumPost", "/addForumComment/**", "/newForumPost",
+                        "/newForumComment", "/bookRequest/**", "/newUserLogin", "/addLoginDetails", "/createNewHSEUser").permitAll().anyRequest().authenticated()
                 .and()
                 .formLogin()
                 .loginPage("/")
@@ -47,7 +57,11 @@ public class SecSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .logout()
                 .logoutUrl("/perform_logout")
-                .deleteCookies("JSESSIONID");
+                .deleteCookies(COOKIE_NAME)
+                .deleteCookies("JSESSIONID")
+                .and()
+                .addFilter(new JWTAuthenticationFilter(authenticationManager()))
+                .addFilter(new JWTAuthorizationFilter(authenticationManager()));
 
         http.cors().and().csrf().disable()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
