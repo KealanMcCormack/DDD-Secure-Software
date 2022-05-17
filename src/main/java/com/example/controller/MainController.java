@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -381,6 +382,14 @@ public class MainController {
 
     }
 
+    @RequestMapping("/errorPage")
+    public String viewErrorPageWithMessage(String message, ModelMap map){
+        if(message != null){
+            map.addAttribute("message", message);
+        }
+        return "error";
+    }
+
     @PostMapping("/loginCheck")
     public String loginCheck(@RequestParam String username, @RequestParam String password, HttpServletRequest request){
         //Check IP not blocked
@@ -388,7 +397,8 @@ public class MainController {
             IPs ip = ipRepository.findById(request.getRemoteAddr()).get();
             if(ip.getTimeOut() > 0){
                 if(validateTimeOut(ip)){
-                    //redirect
+                    ModelMap map = new ModelMap();
+                    return viewErrorPageWithMessage("Too many login attempts, please try again later", map);
                 }
             }
         }
@@ -404,8 +414,8 @@ public class MainController {
 
         //Check too many logins haven't been attempted
         if(login.getFailedLoginAttempts() > 2){
-
-            // throw an error explaining
+            ModelMap map = new ModelMap();
+            return viewErrorPageWithMessage("Too many failed login attempts, this account has been locked. Please contact a site administrator", map);
         }
 
         if(!(userValidation.isUserNameCorrectFormat(username))){
