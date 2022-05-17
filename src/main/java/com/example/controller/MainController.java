@@ -31,6 +31,9 @@ public class MainController {
     LoginRepository loginRepository;
 
     @Autowired
+    IPRepository ipRepository;
+
+    @Autowired
     AdminRepository adminRepository;
 
     @Autowired
@@ -380,32 +383,84 @@ public class MainController {
 
     @PostMapping("/loginCheck")
     public String loginCheck(@RequestParam String username, @RequestParam String password, HttpServletRequest request){
+        //Check IP not blocked
+        if(ipRepository.existsById(request.getRemoteAddr())){
+            IPs ip = ipRepository.findById(request.getRemoteAddr()).get();
+            if(ip.getTimeOut() > 0){
+                if(validateTimeOut(ip)){
+                    //redirect
+                }
+            }
+        }
+
+        //Check username exists
+        if(!loginRepository.existsById(username)){
+            loginFailIterIp(request.getRemoteAddr());
+            request.getSession().setAttribute("login", "false");
+            return "redirect:login.jsp";
+        }
+
+        Login login = loginRepository.getById(username);
+
+        //Check too many logins haven't been attempted
+        if(login.getFailedLoginAttempts() > 2){
+
+            // throw an error explaining
+        }
 
         if(!(userValidation.isUserNameCorrectFormat(username))){
-            request.getSession().setAttribute("login", "true");
+            request.getSession().setAttribute("login", "false");
             return "redirect:login.jsp";
         }
 
         if(!(userValidation.isPasswordStrong(password))){
-            request.getSession().setAttribute("login", "true");
+            request.getSession().setAttribute("login", "false");
             return "redirect:login.jsp";
         }
 
-        if(loginRepository.existsById(username)){
-            if(loginRepository.findById(username).get().getPassword().equals(passwordEncoder.encode(password))){
-                request.getSession().setAttribute("login", "true");
-                request.getSession().setAttribute("username", username);
-                String PPS = loginRepository.findById(username).get().getPPS();
-                if(usersRepository.existsById(PPS)){
-                    if(usersRepository.findById(PPS).get().getVaccinationStage() > 1){
-                        request.getSession().setAttribute("vaccinated", "true");
-                    }
+        if(loginRepository.findById(username).get().getPassword().equals(passwordEncoder.encode(password))){
+            request.getSession().setAttribute("login", "true");
+            request.getSession().setAttribute("username", username);
+            String PPS = loginRepository.findById(username).get().getPPS();
+            if(usersRepository.existsById(PPS)){
+                if(usersRepository.findById(PPS).get().getVaccinationStage() > 1){
+                    request.getSession().setAttribute("vaccinated", "true");
                 }
-                return "redirect:/";
             }
+            return "redirect:/";
         }
+
+        login.iterateFailedLogin();
+        loginFailIterIp(request.getRemoteAddr());
+        loginRepository.save(login);
         request.getSession().setAttribute("login", "false");
         return "redirect:/login";
+    }
+
+    public void loginFailIterIp(String ip){
+        if(ipRepository.existsById(ip)){
+            IPs requestorIP = ipRepository.getById(ip);
+            requestorIP.iterateConnectionAttempts();
+            ipRepository.save(requestorIP);
+        } else{
+            IPs ips = new IPs();
+            ips.setIp(ip);
+            ips.iterateConnectionAttempts();
+            if(ips.getConnectionAttempts() > 2){
+                ips.setTimeOut(System.currentTimeMillis());
+            }
+            ipRepository.save(ips);
+        }
+    }
+
+    public boolean validateTimeOut(IPs ip){
+        if(System.currentTimeMillis() - ip.getTimeOut() < 20 * 60000){
+            return true;
+        }else{
+            ip.setTimeOut(0);
+            ipRepository.save(ip);
+            return false;
+        }
     }
 
     @PostMapping("/adminLoginCheck")

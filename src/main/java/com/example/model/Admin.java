@@ -15,11 +15,12 @@ public class Admin {
 
     @NotBlank
     private String email;
-
     @Id
     private String username;
     @NotNull
     private String password;
+
+    private int failedLoginAttempts;
 
     public Admin(){}
 
@@ -28,6 +29,7 @@ public class Admin {
         this.username = username;
         this.password = password;
         this.privilege = privilege;
+        failedLoginAttempts = 0;
     }
 
     @NotNull

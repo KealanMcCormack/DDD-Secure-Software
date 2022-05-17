@@ -16,13 +16,22 @@ public class Login {
     @NotNull
     private String password;
 
+    @NotNull
+    private String PPS;
+
+    private int failedLoginAttempts;
+
     public Login(){}
     public Login(String username, String password, String PPS) {
         this.username = username;
         this.password = password;
         this.PPS = PPS;
+        failedLoginAttempts = 0;
     }
 
-    @NotNull
-    private String PPS;
+    public void iterateFailedLogin(){
+        failedLoginAttempts++;
+    }
+
+
 }

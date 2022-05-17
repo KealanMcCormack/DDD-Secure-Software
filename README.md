@@ -30,13 +30,16 @@ Kealan
 
 *To do*
 
-3. Limit the number of consecutive failed authentication attempts to 3.
-4. If an IP address performs 3 consecutive failed authentication attempts, block it for a given amount of time (e.g., 20 mins).
 5. Implement appropriate access control to only allow the user associated with a specific account to access his/her vaccination information. Also apply access control policies to regulate access to the urls that should only be accessible to healthcare staff.
 7. Support synchronous session management or asynchronous session management using JWT.
 - https://www.toptal.com/spring/spring-security-tutorial
 
 *In progress*
+
+3. Limit the number of consecutive failed authentication attempts to 3.
+ - Either use ifs or listener
+4. If an IP address performs 3 consecutive failed authentication attempts, block it for a given amount of time (e.g., 20 mins).
+ - Add login attempt service / db. Use a thread for the 20 minute thing
 
 
 *Done*
