@@ -8,7 +8,9 @@
     <body>
         <p>You have reached the error page</p>
         <c:if test="${not empty message}">
-            <p id="panel">${message}</p>
+            <p>
+                <c:out value="message = ${message}"/>
+            </p>
         </c:if>
         <h2>
             <a href="/">Back to Homepage</a>

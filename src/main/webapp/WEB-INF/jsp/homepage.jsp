@@ -1,3 +1,4 @@
+<%@ page import="java.util.Objects" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
@@ -26,7 +27,7 @@
 <div align="center">
     <h2>
         <%
-            if(request.getSession().getAttribute("NewlyRegistered") == null && request.getSession().getAttribute("login") == null){
+            if(request.getSession().getAttribute("NewlyRegistered") == null && (request.getSession().getAttribute("login") == null || Objects.equals(request.getSession().getAttribute("login").toString(), "false"))){
         %>
         <a href="/account_register">Register to Account</a>
         <%
@@ -34,7 +35,7 @@
         %>
 
         <%
-            if(request.getSession().getAttribute("login") != null){
+            if(request.getSession().getAttribute("login") != null && Objects.equals(request.getSession().getAttribute("login").toString(), "true")){
         %>
         <a href="/activity">View Last Activity</a>
         <%
@@ -50,7 +51,7 @@
 <div align="center">
 <h2>
     <%
-        if(request.getSession().getAttribute("login") != null && request.getSession().getAttribute("vaccinated") == null && !((boolean) request.getSession().getAttribute("isBooked"))){
+        if(request.getSession().getAttribute("login") != null && Objects.equals(request.getSession().getAttribute("login").toString(), "true") && request.getSession().getAttribute("vaccinated") == null && !((boolean) request.getSession().getAttribute("isBooked"))){
     %>
     <a href="/booking">Book Vaccine</a>
     <%
