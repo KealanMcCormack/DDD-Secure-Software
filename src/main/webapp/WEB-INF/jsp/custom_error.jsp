@@ -3,7 +3,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 <head>
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'">
     <title>ERROR</title>
 </head>
 <body>

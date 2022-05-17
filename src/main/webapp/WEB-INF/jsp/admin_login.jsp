@@ -4,7 +4,6 @@
 
 <html>
 <head>
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'">
     <title>HSE Login</title>
 </head>
 <body>

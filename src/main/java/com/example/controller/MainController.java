@@ -384,7 +384,7 @@ public class MainController {
 
     public String viewErrorPageWithMessage(String message, ModelMap model){
         if(message != null){
-            model.addAttribute("message", error_message);
+            model.addAttribute("message", message);
         }
         return "custom_error";
     }
