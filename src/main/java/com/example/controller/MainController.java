@@ -387,8 +387,10 @@ public class MainController {
         return "custom_error";
     }
 
-    @PostMapping("/loginCheck")
-    public String loginCheck(@RequestParam String username, @RequestParam String password, HttpServletRequest request){
+    @RequestMapping("/loginChecks")
+    public String loginCheck(HttpServletRequest request){
+        String username = request.getParameter("username");
+        String password = request.getParameter("password");
         //Check IP not blocked
         if(ipRepository.existsById(request.getRemoteAddr())){
             IPs ip = ipRepository.findById(request.getRemoteAddr()).get();

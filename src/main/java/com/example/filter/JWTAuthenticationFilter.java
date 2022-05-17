@@ -57,8 +57,8 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         //res.addHeader(HEADER_STRING, TOKEN_PREFIX + token);
 
         addCookie(token, response);
-
-        new DefaultRedirectStrategy().sendRedirect(request, response, "/");
+        response.addHeader("username", ((User) auth.getPrincipal()).getUsername());
+        new DefaultRedirectStrategy().sendRedirect(request, response, "/loginChecks");
 
         //authenticationSuccessHandler.onAuthenticationSuccess(request, response, getAuthentication(token));
         //getAuthentication(token).

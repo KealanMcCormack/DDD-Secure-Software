@@ -2,6 +2,7 @@ package com.example.security;
 
 import com.example.filter.JWTAuthenticationFilter;
 import com.example.filter.JWTAuthorizationFilter;
+import com.example.services.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
@@ -27,7 +28,7 @@ import static com.example.filter.SecurityConstants.COOKIE_NAME;
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(securedEnabled = true)
-public class SecSecurityConfig extends WebSecurityConfigurerAdapter {
+public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Qualifier("userDetailsServiceImpl")
     @Autowired
@@ -36,6 +37,10 @@ public class SecSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(final AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
+    }
+
+    public WebSecurityConfig(UserDetailsServiceImpl userDetailsService) {
+        this.userDetailsService = userDetailsService;
     }
 
     @Override
@@ -50,7 +55,7 @@ public class SecSecurityConfig extends WebSecurityConfigurerAdapter {
                 .requiresChannel(channel ->
                         channel.anyRequest().requiresSecure());
 
-        http
+        http.cors().and().csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/", "/stats", "/login", "/loginCheck", "/admin_login",
                         "/logout", "/forum", "/account_register", "/newUserLogin", "/addLoginDetails", "/userData").permitAll()
@@ -61,7 +66,6 @@ public class SecSecurityConfig extends WebSecurityConfigurerAdapter {
                 .formLogin()
                 .loginPage("/login")
                 .permitAll()
-                //.failureUrl("/login.html?error=true")
                 .and()
                 .logout()
                 .logoutUrl("/logout")
@@ -70,11 +74,8 @@ public class SecSecurityConfig extends WebSecurityConfigurerAdapter {
                 .deleteCookies("JSESSIONID")
                 .and()
                 .addFilter(new JWTAuthenticationFilter(authenticationManager()))
-                .addFilter(new JWTAuthorizationFilter(authenticationManager()));
-
-        http.cors().and().csrf().disable()
+                .addFilter(new JWTAuthorizationFilter(authenticationManager()))
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-
     }
 
     @Bean

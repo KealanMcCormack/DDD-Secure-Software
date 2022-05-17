@@ -3,6 +3,7 @@ package com.example.filter;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
+import com.auth0.jwt.interfaces.DecodedJWT;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -17,6 +18,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 
 import static com.example.filter.SecurityConstants.*;
 
@@ -56,6 +58,12 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
     private UsernamePasswordAuthenticationToken getAuthentication(String token) {
         //String token = request.getHeader(HEADER_STRING);
         if (token != null) {
+            //Check token is valid
+            DecodedJWT jwt = JWT.decode(token);
+            if( jwt.getExpiresAt().before(new Date())) {
+                return null;
+            }
+
             // parse the token.
             String user = JWT.require(Algorithm.HMAC512(SECRET.getBytes()))
                     .build()
